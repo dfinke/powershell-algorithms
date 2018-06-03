@@ -60,4 +60,31 @@ Describe "LinkedList" {
 
         $linkedList.find( {$args[0].key -eq 'test5'} ) | Should BeNullOrEmpty
     }
+
+    it 'should delete linked list head' {
+        $linkedList = New-Object LinkedList
+
+        $linkedList.deleteHead() | Should Be $null
+
+        $linkedList.append(1)
+        $linkedList.append(2)
+
+        $linkedList.head.toString() | Should Be 1
+        $linkedList.tail.toString() | Should Be 2
+
+        $deletedNode1 = $linkedList.deleteHead()
+
+        $deletedNode1.value | Should Be 1
+        $linkedList.toString() | Should Be 2
+        $linkedList.head.toString() | Should Be 2
+        $linkedList.tail.toString() | Should Be 2
+
+        $deletedNode2 = $linkedList.deleteHead()
+
+        $deletedNode2.value | Should Be 2
+        $linkedList.toString() | Should BeNullOrEmpty
+
+        $linkedList.head | Should BeNullOrEmpty
+        $linkedList.tail | Should BeNullOrEmpty
+    }
 }

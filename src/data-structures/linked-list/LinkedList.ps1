@@ -58,6 +58,24 @@ class LinkedList {
         return $null
     }
 
+    [object] deleteHead() {
+        if (!$this.head) {
+            return $null
+        }
+
+        $deletedHead = $this.head
+
+        if ($this.head.next) {
+            $this.head = $this.head.next
+        }
+        else {
+            $this.head = $null
+            $this.tail = $null
+        }
+
+        return $deletedHead;
+    }
+
     [object] ToArray() {
         $nodes = @()
         $currentNode = $this.head
