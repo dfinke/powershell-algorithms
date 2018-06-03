@@ -13,4 +13,12 @@ Describe "LinkedList" {
         $linkedList.ToString() | should be "1,2"
     }
 
+    it 'should prepend node to linked list' {
+        $linkedList = New-Object LinkedList
+
+        $linkedList.Append(1)
+        $linkedList.Prepend(2)
+
+        $linkedList.ToString() | should be '2,1'
+    }
 }
