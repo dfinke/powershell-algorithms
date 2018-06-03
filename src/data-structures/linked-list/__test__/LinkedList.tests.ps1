@@ -121,4 +121,51 @@ Describe "LinkedList" {
         $linkedList.head | Should BeNullOrEmpty
         $linkedList.tail | Should BeNullOrEmpty
     }
+
+    it 'should delete node by value from linked list' {
+        $linkedList = New-Object LinkedList
+
+        $linkedList.Delete(5) | Should Be $null
+
+        $linkedList.append(1)
+        $linkedList.append(1)
+        $linkedList.append(2)
+        $linkedList.append(3)
+        $linkedList.append(3)
+        $linkedList.append(3)
+        $linkedList.append(4)
+        $linkedList.append(5)
+
+        $linkedList.head.toString() | Should Be 1
+        $linkedList.tail.toString() | Should Be 5
+
+        $deletedNode = $linkedList.delete(3)
+
+        $deletedNode.value | Should Be 3
+        $linkedList.toString() | Should Be '1,1,2,4,5'
+
+        $linkedList.delete(3)
+        $linkedList.toString() | Should Be '1,1,2,4,5'
+
+        $linkedList.delete(1)
+        $linkedList.toString() | Should Be '2,4,5'
+
+        $linkedList.head.toString() | Should Be '2'
+        $linkedList.tail.toString() | Should Be '5'
+
+        $linkedList.delete(5)
+        $linkedList.toString() | Should Be '2,4'
+
+        $linkedList.head.toString() | Should Be '2'
+        $linkedList.tail.toString() | Should Be '4'
+
+        $linkedList.delete(4)
+        $linkedList.toString() | Should Be '2'
+
+        $linkedList.head.toString() | Should Be '2'
+        $linkedList.tail.toString() | Should Be '2'
+
+        $linkedList.delete(2)
+        $linkedList.toString() | Should Be ''
+    }
 }

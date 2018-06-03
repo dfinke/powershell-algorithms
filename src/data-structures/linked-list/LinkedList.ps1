@@ -102,6 +102,42 @@ class LinkedList {
         return $deletedTail
     }
 
+    [object] Delete($value) {
+        if (!$this.head) {
+            return $null
+        }
+
+        $deletedNode = $null
+
+        # If the head must be deleted then make 2nd node to be a head.
+        while ($this.head -and ($this.head.value -eq $value)) {
+            $deletedNode = $this.head
+            $this.head = $this.head.next
+        }
+
+        $currentNode = $this.head
+
+        if ($currentNode -ne $null) {
+            # If next node must be deleted then make next node to be a next next one.
+            while ($currentNode.next) {
+                if ($currentNode.next.value -eq $value) {
+                    $deletedNode = $currentNode.next
+                    $currentNode.next = $currentNode.next.next
+                }
+                else {
+                    $currentNode = $currentNode.next
+                }
+            }
+        }
+
+        # Check if tail must be deleted.
+        if ($this.tail.value -eq $value) {
+            $this.tail = $currentNode
+        }
+
+        return $deletedNode
+    }
+
     [object] ToArray() {
         $nodes = @()
         $currentNode = $this.head
