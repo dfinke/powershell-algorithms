@@ -47,6 +47,20 @@ class LinkedList {
     }
 
     [object] Find([scriptblock]$callback) {
+        if (!$this.head) {
+            return $null
+        }
+
+        $currentNode = $this.head
+
+        while ($currentNode) {
+            if (& $callback $currentNode.value) {
+                return $currentNode
+            }
+
+            $currentNode = $currentNode.next
+        }
+
         return $null
     }
 

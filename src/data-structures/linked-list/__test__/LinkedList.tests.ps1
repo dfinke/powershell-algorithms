@@ -41,4 +41,23 @@ Describe "LinkedList" {
 
         $linkedList.Find(5).value | Should BeNullOrEmpty
     }
+
+    it 'should find node by callback' {
+        $linkedList = New-Object LinkedList
+
+        $linkedList.append( @{ value = 1; key = 'test1' })
+        $linkedList.append( @{ value = 2; key = 'test2' })
+        $linkedList.append( @{ value = 3; key = 'test3' });
+
+        $node = $linkedList.find( {
+                param($currentNode)
+
+                $currentNode.key -eq 'test2'
+            })
+
+        $node.value.key   | Should Be 'test2'
+        $node.value.value | Should Be 2
+
+        $linkedList.find( {$args[0].key -eq 'test5'} ) | Should BeNullOrEmpty
+    }
 }
