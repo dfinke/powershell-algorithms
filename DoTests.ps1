@@ -1,1 +1,1 @@
-Invoke-Pester
+Invoke-Pester -Script $PSScriptRoot
