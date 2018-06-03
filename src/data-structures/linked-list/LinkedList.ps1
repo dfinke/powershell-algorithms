@@ -28,25 +28,14 @@ class LinkedList {
     }
 
     [object] Find($value) {
-        if (!$this.head) {
-            return $null
-        }
-
-        $currentNode = $this.head
-
-        while ($currentNode) {
-
-            if ($currentNode.value -eq $value) {
-                return $currentNode
-            }
-
-            $currentNode = $currentNode.next
-        }
-
-        return $null
+        return $this.Find($value, $null)
     }
 
     [object] Find([scriptblock]$callback) {
+        return $this.Find($null, $callback)
+    }
+
+    hidden [object] Find($value, [scriptblock]$callback) {
         if (!$this.head) {
             return $null
         }
@@ -54,7 +43,12 @@ class LinkedList {
         $currentNode = $this.head
 
         while ($currentNode) {
-            if (& $callback $currentNode.value) {
+
+            if ($callback -and (&$callback $currentNode.value)) {
+                return $currentNode
+            }
+
+            if ($currentNode.value -eq $value) {
                 return $currentNode
             }
 
