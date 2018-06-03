@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/5mgmde3n31mf9x2a?svg=true)](https://ci.appveyor.com/project/dfinke/powershell-algorithms)
+
 # PowerShell Algorithms and Data Structures
 
 Algorithms and data structures implemented in PowerShell with explanations and links to further readings
