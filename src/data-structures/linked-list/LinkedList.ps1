@@ -76,6 +76,32 @@ class LinkedList {
         return $deletedHead;
     }
 
+    [object] deleteTail() {
+        if ($this.head -eq $this.tail) {
+            $deletedTail = $this.tail
+            $this.head = $null
+            $this.tail = $null
+
+            return $deletedTail
+        }
+
+        $deletedTail = $this.tail
+
+        # Rewind to the last node and delete "next" link for the node before the last one.
+        $currentNode = $this.head
+        while ($currentNode.next) {
+            if (!$currentNode.next.next) {
+                $currentNode.next = $null
+            }
+            else {
+                $currentNode = $currentNode.next
+            }
+        }
+
+        $this.tail = $currentNode
+        return $deletedTail
+    }
+
     [object] ToArray() {
         $nodes = @()
         $currentNode = $this.head

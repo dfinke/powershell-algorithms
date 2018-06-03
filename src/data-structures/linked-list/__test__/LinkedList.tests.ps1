@@ -87,4 +87,38 @@ Describe "LinkedList" {
         $linkedList.head | Should BeNullOrEmpty
         $linkedList.tail | Should BeNullOrEmpty
     }
+
+    it 'should delete linked list tail' {
+        $linkedList = New-Object LinkedList
+
+        $linkedList.deleteTail() | Should Be $null
+
+        $linkedList.append(1)
+        $linkedList.append(2)
+        $linkedList.append(3)
+
+        $linkedList.head.toString() | Should Be 1
+        $linkedList.tail.toString() | Should Be 3
+
+        $deletedNode1 = $linkedList.deleteTail()
+
+        $deletedNode1.value | Should Be 3
+        $linkedList.toString() | Should Be "1,2"
+        $linkedList.head.toString() | Should Be 1
+        $linkedList.tail.toString() | Should Be 2
+
+        $deletedNode2 = $linkedList.deleteTail()
+
+        $deletedNode2.value | Should Be 2
+        $linkedList.toString() | Should Be "1"
+        $linkedList.head.toString() | Should Be 1
+        $linkedList.tail.toString() | Should Be 1
+
+        $deletedNode3 = $linkedList.deleteTail()
+
+        $deletedNode3.value | Should Be 1
+        $linkedList.toString() | Should BeNullOrEmpty
+        $linkedList.head | Should BeNullOrEmpty
+        $linkedList.tail | Should BeNullOrEmpty
+    }
 }
