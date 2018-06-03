@@ -22,9 +22,32 @@ class LinkedList {
     }
 
     [object] Prepend($value) {
-        # #  Make new node to be a head.
+        #  Make new node to be a head.
         $this.head = New-Object LinkedListNode $value, $this.head
         return $this
+    }
+
+    [object] Find($value) {
+        if (!$this.head) {
+            return $null
+        }
+
+        $currentNode = $this.head
+
+        while ($currentNode) {
+
+            if ($currentNode.value -eq $value) {
+                return $currentNode
+            }
+
+            $currentNode = $currentNode.next
+        }
+
+        return $null
+    }
+
+    [object] Find([scriptblock]$callback) {
+        return $null
     }
 
     [object] ToArray() {

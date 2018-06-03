@@ -21,4 +21,24 @@ Describe "LinkedList" {
 
         $linkedList.ToString() | should be '2,1'
     }
+
+    it 'should find node by value' {
+        $linkedList = New-Object LinkedList
+
+        $linkedList.Find(5) | Should BeNullOrEmpty
+
+        $linkedList.Append(1)
+
+        $linkedList.Find(5).value | Should BeNullOrEmpty
+        $linkedList.Find(1).value | Should Be 1
+
+        $linkedList.Append(2)
+        $linkedList.Append(3)
+
+        $node = $linkedList.Find(2)
+
+        $node.value | Should Be 2
+
+        $linkedList.Find(5).value | Should BeNullOrEmpty
+    }
 }
