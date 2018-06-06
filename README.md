@@ -26,3 +26,5 @@ a set of rules that precisely define a sequence of operations.
 * **Math**
   * [Factorial](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/factorial)
   * [Fibonacci Number](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/fibonacci)
+  * [Primality Test](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/primality-test) (trial division method)
+  * [Euclidean Algorithm](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/euclidean-algorithm) - calculate the Greatest Common Divisor (GCD)
