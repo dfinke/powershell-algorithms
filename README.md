@@ -4,7 +4,7 @@
 
 Algorithms and data structures implemented in PowerShell with explanations and links to further readings
 
-> This is a port of https://github.com/trekhleb/javascript-algorithms
+> This is a port of https://github.com/dfinke/powershell-algorithms
 
 This repository contains PowerShell based examples of many popular algorithms and data structures.
 
@@ -28,3 +28,7 @@ a set of rules that precisely define a sequence of operations.
   * [Fibonacci Number](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/fibonacci)
   * [Primality Test](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/primality-test) (trial division method)
   * [Euclidean Algorithm](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/euclidean-algorithm) - calculate the Greatest Common Divisor (GCD)
+  * [Least Common Multiple](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/least-common-multiple) (LCM)
+  * [Integer Partition](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/integer-partition)
+  * [Sieve of Eratosthenes](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/sieve-of-eratosthenes) - finding all prime numbers up to any given limit
+  * [Is Power of Two](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/is-power-of-two) - check if the number is power of two (naive and bitwise algorithms)
