@@ -32,3 +32,6 @@ a set of rules that precisely define a sequence of operations.
   * [Integer Partition](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/integer-partition)
   * [Sieve of Eratosthenes](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/sieve-of-eratosthenes) - finding all prime numbers up to any given limit
   * [Is Power of Two](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/is-power-of-two) - check if the number is power of two (naive and bitwise algorithms)
+
+* **Sets**
+  * [Cartesian Product](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/sets/cartesian-product) - product of multiple sets  
