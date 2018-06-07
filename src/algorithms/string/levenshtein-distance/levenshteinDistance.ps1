@@ -1,10 +1,6 @@
 function levenshteinDistance([string]$a, [string]$b) {
 
-    $distanceMatrix = New-Object object[] ($b.Length + 1)
-
-    for ($idx = 0; $idx -lt ($b.Length + 1); $idx += 1) {
-        $distanceMatrix[$idx] = New-Object object[] ($a.Length + 1)
-    }
+    $distanceMatrix = (0..($b.Length + 1)).ForEach( {New-Object object[] ($a.Length + 1)} )
 
     for ($i = 0; $i -le $a.length; $i += 1) {
         $distanceMatrix[0][$i] = $i
