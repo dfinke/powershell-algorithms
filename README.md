@@ -4,7 +4,7 @@
 
 Algorithms and data structures implemented in PowerShell with explanations and links to further readings
 
-> This is a port of https://github.com/dfinke/powershell-algorithms
+> This is a port of https://github.com/trekhleb/javascript-algorithms
 
 This repository contains PowerShell based examples of many popular algorithms and data structures.
 
@@ -48,4 +48,9 @@ a set of rules that precisely define a sequence of operations.
   * *~~[Is Power of Two](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/is-power-of-two) - check if the number is power of two (naive and bitwise algorithms)~~*
 
 * **Sets**
-  * [Cartesian Product](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/sets/cartesian-product) - product of multiple sets  
+
+  * [Cartesian Product](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/sets/cartesian-product) - product of multiple sets
+
+* **Strings**
+
+  * [Levenshtein Distance](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/string/levenshtein-distance) - minimum edit distance between two sequences
