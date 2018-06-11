@@ -1,5 +1,5 @@
-. ..\linked-list\LinkedList.ps1
-. ..\linked-list\LinkedListNode.ps1
+. $PSScriptRoot\..\linked-list\LinkedList.ps1
+. $PSScriptRoot\..\linked-list\LinkedListNode.ps1
 
 class Stack {
     $linkedList
