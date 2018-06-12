@@ -1,4 +1,6 @@
-Import-Module $PSScriptRoot\..\LinkedList.psd1 -Force
+#Import-Module $PSScriptRoot\..\LinkedList.psd1 -Force
+. $PSScriptRoot\..\LinkedList.ps1
+. $PSScriptRoot\..\LinkedListNode.ps1
 
 Describe "LinkedListNode" {
     BeforeEach {
