@@ -30,7 +30,7 @@ A data structure is a particular way of organizing and storing data in a compute
 
 * [Linked List](https://github.com/dfinke/powershell-algorithms/tree/master/src/data-structures/linked-list)
 * [Stack](https://github.com/dfinke/powershell-algorithms/tree/master/src/data-structures/stack)
-
+* [Hash Table](https://github.com/dfinke/powershell-algorithms/tree/master/src/data-structures/hash-table)
 
 ## Algorithms
 
