@@ -5,6 +5,7 @@ class Comparator {
     Comparator() {
         $this.compare = {
             param($a, $b)
+
             if ($a -eq $b) { return 0 }
             if ($a -lt $b) { return -1 }
 
