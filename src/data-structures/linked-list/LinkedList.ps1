@@ -149,7 +149,12 @@ class LinkedList {
         return $nodes
     }
 
-    [string]ToString() {
+    [string] ToString() {
+        return $this.ToString($null)
+    }
+
+    [string] ToString($callback) {
         return ($this.ToArray() -join ",")
     }
+
 }
