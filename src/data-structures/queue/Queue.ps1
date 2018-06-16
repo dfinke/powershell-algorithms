@@ -7,26 +7,32 @@ class Queue {
         $this.linkedList = New-Object LinkedList
     }
 
-    # isEmpty() {
-    #     return !this.linkedList.tail;
-    # }
+    [bool] isEmpty() {
+        return !$this.linkedList.tail
+    }
 
-    # peek() {
-    #     if (!this.linkedList.head) {
-    #         return null;
-    #     }
+    [object] peek() {
+        if (!$this.linkedList.head) {
+            return $null
+        }
 
-    #     return this.linkedList.head.value;
-    # }
+        return $this.linkedList.head.value
+    }
 
     enqueue($value) {
         $this.linkedList.append($value)
     }
 
-    # dequeue() {
-    #     const removedHead = this.linkedList.deleteHead();
-    #     return removedHead ? removedHead.value : null;
-    # }
+    [object] dequeue() {
+        $removedHead = $this.linkedList.deleteHead()
+
+        if($removedHead) {
+            return $removedHead.value
+        }
+
+        return $null
+        #return removedHead ? removedHead.value : null;
+    }
 
 
     [string] toString() {

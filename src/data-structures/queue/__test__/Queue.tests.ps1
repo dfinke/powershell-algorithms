@@ -21,47 +21,47 @@ describe 'Queue' {
     it 'should be possible to enqueue/dequeue objects' {
         $queue = New-Object Queue
 
-        # queue.enqueue({ value: 'test1', key: 'key1' });
-        # queue.enqueue({ value: 'test2', key: 'key2' });
+        $queue.enqueue(@{ value= 'test1'; key= 'key1' })
+        $queue.enqueue(@{ value= 'test2'; key= 'key2' })
 
         # const stringifier = value => `${value.key}:${value.value}`;
 
         # expect(queue.toString(stringifier)).toBe('key1:test1,key2:test2');
-        # expect(queue.dequeue().value).toBe('test1');
-        # expect(queue.dequeue().value).toBe('test2');
+        $queue.dequeue().value | Should Be 'test1'
+        $queue.dequeue().value | Should Be 'test2'
     }
 
     it 'should peek data from queue' {
         $queue = New-Object Queue
 
-        # expect(queue.peek()).toBeNull();
+        $queue.peek() | Should Be $null
 
-        # queue.enqueue(1);
-        # queue.enqueue(2);
+        $queue.enqueue(1)
+        $queue.enqueue(2)
 
-        # expect(queue.peek()).toBe(1);
-        # expect(queue.peek()).toBe(1);
+        $queue.peek() | Should Be 1
+        $queue.peek() | Should Be 1
     }
 
     it 'should check if queue is empty' {
         $queue = New-Object Queue
 
-        # expect(queue.isEmpty()).toBeTruthy();
+        $queue.isEmpty() | Should Be $true
 
-        # queue.enqueue(1);
+        $queue.enqueue(1)
 
-        # expect(queue.isEmpty()).toBeFalsy();
+        $queue.isEmpty() | Should Be $false
     }
 
     it 'should dequeue from queue in FIFO order' {
         $queue = New-Object Queue
 
-        # queue.enqueue(1);
-        # queue.enqueue(2);
+        $queue.enqueue(1)
+        $queue.enqueue(2)
 
-        # expect(queue.dequeue()).toBe(1);
-        # expect(queue.dequeue()).toBe(2);
-        # expect(queue.dequeue()).toBeNull();
-        # expect(queue.isEmpty()).toBeTruthy();
+        $queue.dequeue() | Should Be 1
+        $queue.dequeue() | Should Be 2
+        $queue.dequeue() | Should Be $null
+        $queue.isEmpty() | Should Be $true
     }
 }
