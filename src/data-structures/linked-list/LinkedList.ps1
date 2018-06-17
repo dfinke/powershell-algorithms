@@ -7,10 +7,12 @@ class LinkedList {
     $compare
 
     # default ctor
-    LinkedList() {}
+    LinkedList() {
+        $this.compare = New-Object Comparator
+    }
 
     LinkedList($comparatorFunction) {
-        $this.compare = $comparatorFunction
+        $this.compare = New-Object Comparator $comparatorFunction
     }
 
     [object] Append($value) {
@@ -36,14 +38,6 @@ class LinkedList {
         return $this
     }
 
-    # [object] Find($value) {
-    #     return $this.Find($value, $null)
-    # }
-
-    # [object] Find([scriptblock]$callback) {
-    #     return $this.Find($null, $callback)
-    # }
-
     hidden [object] Find($value, [scriptblock]$callback) {
         if (!$this.head) {
             return $null
@@ -57,7 +51,7 @@ class LinkedList {
                 return $currentNode
             }
 
-            if ($currentNode.value -eq $value) {
+            if ($value -ne $null -and $this.compare.equal($currentNode.value, $value)) {
                 return $currentNode
             }
 

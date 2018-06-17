@@ -1,4 +1,3 @@
-# Import-Module $PSScriptRoot\..\LinkedList.psd1 -Force
 . $PSScriptRoot\..\LinkedList.ps1
 . $PSScriptRoot\..\LinkedListNode.ps1
 
@@ -199,13 +198,11 @@ Describe "LinkedList" {
         append( @{ value = 2; customValue = 'test2' }).
         append( @{ value = 3; customValue = 'test3' })
 
-        # $node = $linkedList.find($null, @{
-        #         value = @{ value = 2; customValue = 'test2' }
-        #     })
+        $node = $linkedList.find(@{value = 2; customValue = 'test2'}, $null)
 
-        # $node | Should Be $null
-        # $node.value.value | Should Be 2
-        # $node.value.customValue).toBe('test2')
-        # $linkedList.find( { value: 2, customValue: 'test5' })).toBeNull()
+        $node | Should Not BeNullOrEmpty
+        $node.value.value | Should Be 2
+        $node.value.customValue | Should Be 'test2'
+        $linkedList.find( @{ value = 2; customValue = 'test5' }, $null) | Should Be $null
     }
 }
