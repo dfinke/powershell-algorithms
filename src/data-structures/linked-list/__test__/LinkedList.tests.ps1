@@ -4,6 +4,12 @@
 
 Describe "LinkedList" {
 
+    it 'should create empty linked list' {
+        $linkedList = New-Object LinkedList
+
+        $linkedList.ToString() | Should Be ''
+    }
+
     it 'should append node to linked list' {
         $linkedList = New-Object LinkedList
 
@@ -27,21 +33,21 @@ Describe "LinkedList" {
     it 'should find node by value' {
         $linkedList = New-Object LinkedList
 
-        $linkedList.Find(5) | Should BeNullOrEmpty
+        $linkedList.Find(5, $null) | Should BeNullOrEmpty
 
         $linkedList.Append(1)
 
-        $linkedList.Find(5).value | Should BeNullOrEmpty
-        $linkedList.Find(1).value | Should Be 1
+        $linkedList.Find(5, $null).value | Should BeNullOrEmpty
+        $linkedList.Find(1, $null).value | Should Be 1
 
         $linkedList.Append(2)
         $linkedList.Append(3)
 
-        $node = $linkedList.Find(2)
+        $node = $linkedList.Find(2, $null)
 
         $node.value | Should Be 2
 
-        $linkedList.Find(5).value | Should BeNullOrEmpty
+        $linkedList.Find(5, $null).value | Should BeNullOrEmpty
     }
 
     it 'should find node by callback' {
@@ -51,7 +57,7 @@ Describe "LinkedList" {
         $linkedList.append( @{ value = 2; key = 'test2' })
         $linkedList.append( @{ value = 3; key = 'test3' });
 
-        $node = $linkedList.find( {
+        $node = $linkedList.Find($null, {
                 param($currentNode)
 
                 $currentNode.key -eq 'test2'
@@ -60,7 +66,7 @@ Describe "LinkedList" {
         $node.value.key   | Should Be 'test2'
         $node.value.value | Should Be 2
 
-        $linkedList.find( {$args[0].key -eq 'test5'} ) | Should BeNullOrEmpty
+        $linkedList.find($null, {$args[0].key -eq 'test5'} ) | Should BeNullOrEmpty
     }
 
     it 'should delete linked list head' {
@@ -169,5 +175,37 @@ Describe "LinkedList" {
 
         $linkedList.delete(2)
         $linkedList.toString() | Should Be ''
+    }
+
+    it 'should find node by means of custom compare function' {
+        $comparatorFunction = {
+            param($a, $b)
+
+            if ($a.customValue -eq $b.customValue) {
+                return 0
+            }
+
+            if ($a.customValue -lt $b.customValue) {
+                return -1
+            }
+            return 1
+            # return a.customValue < b.customValue ? -1 : 1;
+        };
+
+        $linkedList = New-Object LinkedList $comparatorFunction
+
+        $linkedList.
+        append( @{ value = 1; customValue = 'test1' }).
+        append( @{ value = 2; customValue = 'test2' }).
+        append( @{ value = 3; customValue = 'test3' })
+
+        # $node = $linkedList.find($null, @{
+        #         value = @{ value = 2; customValue = 'test2' }
+        #     })
+
+        # $node | Should Be $null
+        # $node.value.value | Should Be 2
+        # $node.value.customValue).toBe('test2')
+        # $linkedList.find( { value: 2, customValue: 'test5' })).toBeNull()
     }
 }

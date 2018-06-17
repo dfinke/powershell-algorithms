@@ -1,8 +1,17 @@
 . $PSScriptRoot\LinkedListNode.ps1
+. $PSScriptRoot\..\..\utils\comparator\Comparator.ps1
 
 class LinkedList {
     $head
     $tail
+    $compare
+
+    # default ctor
+    LinkedList() {}
+
+    LinkedList($comparatorFunction) {
+        $this.compare = $comparatorFunction
+    }
 
     [object] Append($value) {
         $newNode = New-Object LinkedListNode $value
@@ -27,13 +36,13 @@ class LinkedList {
         return $this
     }
 
-    [object] Find($value) {
-        return $this.Find($value, $null)
-    }
+    # [object] Find($value) {
+    #     return $this.Find($value, $null)
+    # }
 
-    [object] Find([scriptblock]$callback) {
-        return $this.Find($null, $callback)
-    }
+    # [object] Find([scriptblock]$callback) {
+    #     return $this.Find($null, $callback)
+    # }
 
     hidden [object] Find($value, [scriptblock]$callback) {
         if (!$this.head) {
@@ -156,5 +165,4 @@ class LinkedList {
     [string] ToString($callback) {
         return ($this.ToArray() -join ",")
     }
-
 }
