@@ -37,7 +37,7 @@ class PSHashTable {
         $this.keys[$key] = $keyHash
         $bucketLinkedList = $this.buckets[$keyHash]
 
-        $node = $bucketLinkedList.Find( {
+        $node = $bucketLinkedList.Find($null, {
                 param($nodeValue)
 
                 if ($nodeValue.key -eq $key) {
@@ -61,7 +61,7 @@ class PSHashTable {
         $this.keys.Remove($key)
 
         $bucketLinkedList = $this.buckets[$keyHash]
-        $node = $bucketLinkedList.find( {
+        $node = $bucketLinkedList.find($null, {
                 param($nodeValue)
 
                 if ($nodeValue.key -eq $key) {
@@ -79,7 +79,7 @@ class PSHashTable {
 
     [object] get($key) {
         $bucketLinkedList = $this.buckets[$this.hash($key)]
-        $node = $bucketLinkedList.find( {
+        $node = $bucketLinkedList.find($null, {
                 param($nodeValue)
 
                 if ($nodeValue.key -eq $key) {
