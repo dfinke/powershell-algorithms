@@ -5,13 +5,8 @@ class DisjointSet {
     hidden [scriptblock]$keyCallback
     hidden [hashtable]$items
 
-    DisjointSet() {
-        $this.DoInit($null)
-    }
-
-    DisjointSet([scriptblock]$keyCallback) {
-        $this.DoInit($keyCallback)
-    }
+    DisjointSet() { $this.DoInit($null) }
+    DisjointSet([scriptblock]$keyCallback) { $this.DoInit($keyCallback) }
 
     hidden DoInit([scriptblock]$keyCallback) {
         $this.keyCallback = $keyCallback
@@ -19,7 +14,7 @@ class DisjointSet {
     }
 
     [object] makeSet($itemValue) {
-        $disjointSetItem = New-Object DisjointSetItem($itemValue, $this.keyCallback);
+        $disjointSetItem = New-Object DisjointSetItem($itemValue, $this.keyCallback)
 
         if (!$this.items[$disjointSetItem.getKey()]) {
             # Add new item only in case if it not presented yet.
@@ -35,9 +30,7 @@ class DisjointSet {
         # Try to find item itself;
         $requiredDisjointItem = $this.items[$templateDisjointItem.getKey()]
 
-        if (!$requiredDisjointItem) {
-            return $null
-        }
+        if (!$requiredDisjointItem) { return $null }
 
         return $requiredDisjointItem.getRoot().getKey()
     }
@@ -50,10 +43,8 @@ class DisjointSet {
             throw 'One or two values are not in sets'
         }
 
-        if ($rootKeyA -eq $rootKeyB) {
-            # In case if both elements are already in the same set then just return its key.
-            return $this
-        }
+        # In case if both elements are already in the same set then just return its key.
+        if ($rootKeyA -eq $rootKeyB) { return $this }
 
         $rootA = $this.items[$rootKeyA]
         $rootB = $this.items[$rootKeyB]
