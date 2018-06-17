@@ -187,8 +187,8 @@ Describe "LinkedList" {
             if ($a.customValue -lt $b.customValue) {
                 return -1
             }
+
             return 1
-            # return a.customValue < b.customValue ? -1 : 1;
         };
 
         $linkedList = New-Object LinkedList $comparatorFunction
@@ -203,6 +203,6 @@ Describe "LinkedList" {
         $node | Should Not BeNullOrEmpty
         $node.value.value | Should Be 2
         $node.value.customValue | Should Be 'test2'
-        $linkedList.find( @{ value = 2; customValue = 'test5' }, $null) | Should Be $null
+        $linkedList.find(@{ value = 2; customValue = 'test5' }, $null) | Should Be $null
     }
 }
