@@ -1,31 +1,39 @@
 . $PSScriptRoot\..\linked-list\LinkedList.ps1
 
 class GraphVertex {
-    # /**
-    #  * @param {*} value
-    #  */
-    # constructor(value) {
-    #   if (value === undefined) {
-    #     throw new Error('Graph vertex must have a value');
-    #   }
+    $value
+    $edges
 
-    #   /**
-    #    * @param {GraphEdge} edgeA
-    #    * @param {GraphEdge} edgeB
-    #    */
-    #   const edgeComparator = (edgeA, edgeB) => {
-    #     if (edgeA.getKey() === edgeB.getKey()) {
-    #       return 0;
-    #     }
+    GraphVertex() {
+        $this.DoInit($null)
+    }
 
-    #     return edgeA.getKey() < edgeB.getKey() ? -1 : 1;
-    #   };
+    GraphVertex($value) {
+        $this.DoInit($value)
+    }
 
-    #   // Normally you would store string value like vertex name.
-    #   // But generally it may be any object as well
-    #   this.value = value;
-    #   this.edges = new LinkedList(edgeComparator);
-    # }
+    hidden DoInit($value) {
+        if ($value -eq $null) {
+            throw 'Graph vertex must have a value'
+        }
+
+        $edgeComparator = {
+            param($edgeA, $edgeB)
+
+            if ($edgeA.getKey() -eq $edgeB.getKey()) {
+                return 0
+            }
+
+            if ($edgeA.getKey() -lt $edgeB.getKey()) { return -1 }
+
+            return 1
+        }
+
+        # Normally you would store string value like vertex name.
+        # But generally it may be any object as well
+        $this.value = $value
+        $this.edges = New-Object LinkedList $edgeComparator
+    }
 
     # /**
     #  * @param {GraphEdge} edge
@@ -55,8 +63,8 @@ class GraphVertex {
     #     return node.value.startVertex === this ? node.value.endVertex : node.value.startVertex;
     #   };
 
-    #   // Return either start or end vertex.
-    #   // For undirected graphs it is possible that current vertex will be the end one.
+    #   # Return either start or end vertex.
+    #   # For undirected graphs it is possible that current vertex will be the end one.
     #   return edges.map(neighborsConverter);
     # }
 

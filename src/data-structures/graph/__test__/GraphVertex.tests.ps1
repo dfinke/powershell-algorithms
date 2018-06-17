@@ -3,18 +3,18 @@
 
 describe 'GraphVertex' {
     it 'should throw an error when trying to create vertex without value' {
-        # let vertex = null;
+        $vertex = $null
 
-        # function createEmptyVertex() {
-        #   vertex = new GraphVertex();
-        # }
+        function createEmptyVertex {
+            $vertex = New-Object GraphVertex
+        }
 
-        # expect(vertex).toBeNull();
-        # expect(createEmptyVertex).toThrow();
+        $vertex | Should Be $null
+        {createEmptyVertex} | Should Throw 'Graph vertex must have a value'
     }
 
     it 'should create graph vertex' {
-        # const vertex = new GraphVertex('A');
+        $vertex = New-Object GraphVertex('A')
 
         # expect(vertex).toBeDefined();
         # expect(vertex.value).toBe('A');
