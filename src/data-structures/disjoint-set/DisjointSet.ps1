@@ -1,97 +1,84 @@
 . $PSScriptRoot\DisjointSetItem.ps1
 
 class DisjointSet {
-    # /**
-    #  * @param {function(value: *)} [keyCallback]
-    #  */
-    # constructor(keyCallback) {
-    #   this.keyCallback = keyCallback;
-    #   this.items = {};
-    # }
 
-    # /**
-    #  * @param {*} itemValue
-    #  * @return {DisjointSet}
-    #  */
-    # makeSet(itemValue) {
-    #   const disjointSetItem = new DisjointSetItem(itemValue, this.keyCallback);
+    hidden [scriptblock]$keyCallback
+    hidden [hashtable]$items
 
-    #   if (!this.items[disjointSetItem.getKey()]) {
-    #     // Add new item only in case if it not presented yet.
-    #     this.items[disjointSetItem.getKey()] = disjointSetItem;
-    #   }
+    DisjointSet() {
+        $this.DoInit($null)
+    }
 
-    #   return this;
-    # }
+    DisjointSet([scriptblock]$keyCallback) {
+        $this.DoInit($keyCallback)
+    }
 
-    # /**
-    #  * Find set representation node.
-    #  *
-    #  * @param {*} itemValue
-    #  * @return {(string|null)}
-    #  */
-    # find(itemValue) {
-    #   const templateDisjointItem = new DisjointSetItem(itemValue, this.keyCallback);
+    hidden DoInit([scriptblock]$keyCallback) {
+        $this.keyCallback = $keyCallback
+        $this.items = @{}
+    }
 
-    #   // Try to find item itself;
-    #   const requiredDisjointItem = this.items[templateDisjointItem.getKey()];
+    [object] makeSet($itemValue) {
+        $disjointSetItem = New-Object DisjointSetItem($itemValue, $this.keyCallback);
 
-    #   if (!requiredDisjointItem) {
-    #     return null;
-    #   }
+        if (!$this.items[$disjointSetItem.getKey()]) {
+            # Add new item only in case if it not presented yet.
+            $this.items[$disjointSetItem.getKey()] = $disjointSetItem
+        }
 
-    #   return requiredDisjointItem.getRoot().getKey();
-    # }
+        return $this
+    }
 
-    # /**
-    #  * Union by rank.
-    #  *
-    #  * @param {*} valueA
-    #  * @param {*} valueB
-    #  * @return {DisjointSet}
-    #  */
-    # union(valueA, valueB) {
-    #   const rootKeyA = this.find(valueA);
-    #   const rootKeyB = this.find(valueB);
+    [object] find($itemValue) {
+        $templateDisjointItem = New-Object DisjointSetItem($itemValue, $this.keyCallback)
 
-    #   if (rootKeyA === null || rootKeyB === null) {
-    #     throw new Error('One or two values are not in sets');
-    #   }
+        # Try to find item itself;
+        $requiredDisjointItem = $this.items[$templateDisjointItem.getKey()]
 
-    #   if (rootKeyA === rootKeyB) {
-    #     // In case if both elements are already in the same set then just return its key.
-    #     return this;
-    #   }
+        if (!$requiredDisjointItem) {
+            return $null
+        }
 
-    #   const rootA = this.items[rootKeyA];
-    #   const rootB = this.items[rootKeyB];
+        return $requiredDisjointItem.getRoot().getKey()
+    }
 
-    #   if (rootA.getRank() < rootB.getRank()) {
-    #     // If rootB's tree is bigger then make rootB to be a new root.
-    #     rootB.addChild(rootA);
+    [object] union($valueA, $valueB) {
+        $rootKeyA = $this.find($valueA)
+        $rootKeyB = $this.find($valueB)
 
-    #     return rootB.getKey();
-    #   }
+        if ($rootKeyA -eq $null -or $rootKeyB -eq $null) {
+            throw 'One or two values are not in sets'
+        }
 
-    #   // If rootA's tree is bigger then make rootA to be a new root.
-    #   rootA.addChild(rootB);
+        if ($rootKeyA -eq $rootKeyB) {
+            # In case if both elements are already in the same set then just return its key.
+            return $this
+        }
 
-    #   return this;
-    # }
+        $rootA = $this.items[$rootKeyA]
+        $rootB = $this.items[$rootKeyB]
 
-    # /**
-    #  * @param {*} valueA
-    #  * @param {*} valueB
-    #  * @return {boolean}
-    #  */
-    # inSameSet(valueA, valueB) {
-    #   const rootKeyA = this.find(valueA);
-    #   const rootKeyB = this.find(valueB);
+        if ($rootA.getRank() -lt $rootB.getRank()) {
+            # If rootB's tree is bigger then make rootB to be a new root.
+            $rootB.addChild($rootA)
 
-    #   if (rootKeyA === null || rootKeyB === null) {
-    #     throw new Error('One or two values are not in sets');
-    #   }
+            return $rootB.getKey()
+        }
 
-    #   return rootKeyA === rootKeyB;
-    # }
+        # If rootA's tree is bigger then make rootA to be a new root.
+        $rootA.addChild($rootB)
+
+        return $this
+    }
+
+    [bool] inSameSet($valueA, $valueB) {
+        $rootKeyA = $this.find($valueA)
+        $rootKeyB = $this.find($valueB)
+
+        if ($rootKeyA -eq $null -or $rootKeyB -eq $null) {
+            throw 'One or two values are not in sets'
+        }
+
+        return $rootKeyA -eq $rootKeyB
+    }
 }
