@@ -105,7 +105,6 @@ class GraphVertex {
       }
 
       return $null
-      #return edge ? edge.value : null;
     }
 
     [object] getKey() {
@@ -126,8 +125,6 @@ class GraphVertex {
     }
 
     [string] toString($callback) {
-        #return $null
-        # return callback ? callback(this.value) : `$ {this.value}`;
 
         if ($callback) {
             return &$callback($this.value)

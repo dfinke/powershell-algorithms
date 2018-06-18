@@ -3,40 +3,41 @@
 
 describe 'GraphEdge' {
     it 'should create graph edge with default weight' {
-        # const startVertex = new GraphVertex('A');
-        # const endVertex = new GraphVertex('B');
-        # const edge = new GraphEdge(startVertex, endVertex);
+        $startVertex = New-Object GraphVertex 'A'
+        $endVertex = New-Object GraphVertex 'B'
+        $edge = New-Object GraphEdge $startVertex, $endVertex
 
-        # expect(edge.getKey()).toBe('A_B');
-        # expect(edge.toString()).toBe('A_B');
-        # expect(edge.startVertex).toEqual(startVertex);
-        # expect(edge.endVertex).toEqual(endVertex);
-        # expect(edge.weight).toEqual(0);
+        $edge.getKey() | Should Be 'A_B'
+        $edge.toString() | Should Be 'A_B'
+
+        $edge.startVertex | Should Be $startVertex
+        $edge.endVertex | Should Be $endVertex
+        $edge.weight | Should Be 0
     }
 
     it 'should create graph edge with predefined weight' {
-        # const startVertex = new GraphVertex('A');
-        # const endVertex = new GraphVertex('B');
-        # const edge = new GraphEdge(startVertex, endVertex, 10);
+        $startVertex = New-Object GraphVertex 'A'
+        $endVertex = New-Object GraphVertex 'B'
+        $edge = New-Object GraphEdge $startVertex, $endVertex, 10
 
-        # expect(edge.startVertex).toEqual(startVertex);
-        # expect(edge.endVertex).toEqual(endVertex);
-        # expect(edge.weight).toEqual(10);
+        $edge.startVertex | Should Be $startVertex
+        $edge.endVertex | Should Be $endVertex
+        $edge.weight | Should Be 10
     }
 
     it 'should be possible to do edge reverse' {
-        # const vertexA = new GraphVertex('A');
-        # const vertexB = new GraphVertex('B');
-        # const edge = new GraphEdge(vertexA, vertexB, 10);
+        $vertexA = New-Object GraphVertex 'A'
+        $vertexB = New-Object GraphVertex 'B'
+        $edge = New-Object GraphEdge $vertexA, $vertexB, 10
 
-        # expect(edge.startVertex).toEqual(vertexA);
-        # expect(edge.endVertex).toEqual(vertexB);
-        # expect(edge.weight).toEqual(10);
+        $edge.startVertex | Should Be $vertexA
+        $edge.endVertex | Should Be $vertexB
+        $edge.weight | Should Be 10
 
-        # edge.reverse();
+        $edge.reverse()
 
-        # expect(edge.startVertex).toEqual(vertexB);
-        # expect(edge.endVertex).toEqual(vertexA);
-        # expect(edge.weight).toEqual(10);
+        $edge.startVertex | Should Be $vertexB
+        $edge.endVertex | Should Be $vertexA
+        $edge.weight | Should Be 10
     }
 }

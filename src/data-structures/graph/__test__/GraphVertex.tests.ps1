@@ -65,6 +65,7 @@ describe 'GraphVertex' {
         $vertexA.deleteEdge($edgeAB)
         $vertexA.hasEdge($edgeAB) | Should Be $false
         $vertexA.hasEdge($edgeAC) | Should Be $true
+
         # expect(vertexA.getEdges()[0].toString()).toBe('A_C');
 
         $vertexA.deleteEdge($edgeAC)

@@ -18,31 +18,24 @@ class GraphEdge {
         $this.weight = $weight
     }
 
-    # /**
-    #  * @return {string}
-    #  */
-    # getKey() {
-    #   const startVertexKey = this.startVertex.getKey();
-    #   const endVertexKey = this.endVertex.getKey();
+    [object] getKey() {
+        $startVertexKey = $this.startVertex.getKey()
+        $endVertexKey = $this.endVertex.getKey()
 
-    #   return `${startVertexKey}_${endVertexKey}`;
-    # }
+        return "$($startVertexKey)_$($endVertexKey)"
+        # return `${startVertexKey}_${endVertexKey}`;
+    }
 
-    # /**
-    #  * @return {GraphEdge}
-    #  */
-    # reverse() {
-    #   const tmp = this.startVertex;
-    #   this.startVertex = this.endVertex;
-    #   this.endVertex = tmp;
+    [object] reverse() {
+        $tmp = $this.startVertex
+        $this.startVertex = $this.endVertex
+        $this.endVertex = $tmp
 
-    #   return this;
-    # }
+        return $this
+    }
 
-    # /**
-    #  * @return {string}
-    #  */
-    # toString() {
-    #   return this.getKey();
-    # }
+
+    [string] toString() {
+        return $this.getKey()
+    }
 }
