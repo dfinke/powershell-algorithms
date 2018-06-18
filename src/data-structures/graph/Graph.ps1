@@ -1,106 +1,94 @@
 class Graph {
-    # /**
-    #  * @param {boolean} isDirected
-    #  */
-    # constructor(isDirected = false) {
-    #   this.vertices = {};
-    #   this.edges = {};
-    #   this.isDirected = isDirected;
-    # }
+    $vertices
+    $edges
+    [bool]$isDirected
 
-    # /**
-    #  * @param {GraphVertex} newVertex
-    #  * @returns {Graph}
-    #  */
-    # addVertex(newVertex) {
-    #   this.vertices[newVertex.getKey()] = newVertex;
+    Graph () {
+        $this.DoInit($false)
+    }
 
-    #   return this;
-    # }
+    Graph ($isDirected) {
+        $this.DoInit($isDirected)
+    }
 
-    # /**
-    #  * @param {string} vertexKey
-    #  * @returns GraphVertex
-    #  */
-    # getVertexByKey(vertexKey) {
-    #   return this.vertices[vertexKey];
-    # }
+    DoInit($isDirected) {
+        $this.vertices = @{}
+        $this.edges = @{}
+        $this.isDirected = $isDirected
+    }
 
-    # /**
-    #  * @param {GraphVertex} vertex
-    #  * @returns {GraphVertex[]}
-    #  */
-    # getNeighbors(vertex) {
-    #   return vertex.getNeighbors();
-    # }
+    [object] addVertex($newVertex) {
+        $this.vertices[$newVertex.getKey()] = $newVertex
+        return $this
+    }
 
-    # /**
-    #  * @return {GraphVertex[]}
-    #  */
-    # getAllVertices() {
-    #   return Object.values(this.vertices);
-    # }
+    [object] getVertexByKey($vertexKey) {
+        return $this.vertices[$vertexKey]
+    }
 
-    # /**
-    #  * @return {GraphEdge[]}
-    #  */
-    # getAllEdges() {
-    #   return Object.values(this.edges);
-    # }
+    [object] getNeighbors($vertex) {
+        return $vertex.getNeighbors()
+    }
 
-    # /**
-    #  * @param {GraphEdge} edge
-    #  * @returns {Graph}
-    #  */
-    # addEdge(edge) {
-    #   // Try to find and end start vertices.
-    #   let startVertex = this.getVertexByKey(edge.startVertex.getKey());
-    #   let endVertex = this.getVertexByKey(edge.endVertex.getKey());
+    [object[]] getAllVertices() {
+        return $this.vertices.values
+    }
 
-    #   // Insert start vertex if it wasn't inserted.
-    #   if (!startVertex) {
-    #     this.addVertex(edge.startVertex);
-    #     startVertex = this.getVertexByKey(edge.startVertex.getKey());
-    #   }
+    [object[]] getAllEdges() {
+        return $this.edges.values
+    }
 
-    #   // Insert end vertex if it wasn't inserted.
-    #   if (!endVertex) {
-    #     this.addVertex(edge.endVertex);
-    #     endVertex = this.getVertexByKey(edge.endVertex.getKey());
-    #   }
+    [object] addEdge($edge) {
+        # Try to find and end start vertices.
+        $startVertex = $this.getVertexByKey($edge.startVertex.getKey())
+        $endVertex = $this.getVertexByKey($edge.endVertex.getKey())
 
-    #   // Check if edge has been already added.
-    #   if (this.edges[edge.getKey()]) {
-    #     throw new Error('Edge has already been added before');
-    #   } else {
-    #     this.edges[edge.getKey()] = edge;
-    #   }
+        # Insert start vertex if it wasn't inserted.
+        if (!$startVertex) {
+            $this.addVertex($edge.startVertex)
+            $startVertex = $this.getVertexByKey($edge.startVertex.getKey())
+        }
 
-    #   // Add edge to the vertices.
-    #   if (this.isDirected) {
-    #     // If graph IS directed then add the edge only to start vertex.
-    #     startVertex.addEdge(edge);
-    #   } else {
-    #     // If graph ISN'T directed then add the edge to both vertices.
-    #     startVertex.addEdge(edge);
-    #     endVertex.addEdge(edge);
-    #   }
+        # Insert end vertex if it wasn't inserted.
+        if (!$endVertex) {
+            $this.addVertex($edge.endVertex)
+            $endVertex = $this.getVertexByKey($edge.endVertex.getKey())
+        }
 
-    #   return this;
-    # }
+        # Check if edge has been already added.
+        if ($this.edges[$edge.getKey()]) {
+            throw 'Edge has already been added before'
+        }
+        else {
+            $this.edges[$edge.getKey()] = $edge
+        }
+
+        # Add edge to the vertices.
+        if ($this.isDirected) {
+            # If graph IS directed then add the edge only to start vertex.
+            $startVertex.addEdge($edge)
+        }
+        else {
+            # If graph ISN'T directed then add the edge to both vertices.
+            $startVertex.addEdge($edge)
+            $endVertex.addEdge($edge)
+        }
+
+        return $this
+    }
 
     # /**
     #  * @param {GraphEdge} edge
     #  */
     # deleteEdge(edge) {
-    #   // Delete edge from the list of edges.
-    #   if (this.edges[edge.getKey()]) {
-    #     delete this.edges[edge.getKey()];
+    #   # Delete edge from the list of edges.
+    #   if ($this.edges[edge.getKey()]) {
+    #     delete $this.edges[edge.getKey()];
     #   } else {
     #     throw new Error('Edge not found in graph');
     #   }
 
-    #   // Try to find and end start vertices and delete edge from them.
+    #   # Try to find and end start vertices and delete edge from them.
     #   const startVertex = this.getVertexByKey(edge.startVertex.getKey());
     #   const endVertex = this.getVertexByKey(edge.endVertex.getKey());
 
@@ -108,31 +96,19 @@ class Graph {
     #   endVertex.deleteEdge(edge);
     # }
 
-    # /**
-    #  * @param {GraphVertex} startVertex
-    #  * @param {GraphVertex} endVertex
-    #  * @return {(GraphEdge|null)}
-    #  */
-    # findEdge(startVertex, endVertex) {
-    #   const vertex = this.getVertexByKey(startVertex.getKey());
-    #   return vertex.findEdge(endVertex);
-    # }
+    [object] findEdge($startVertex, $endVertex) {
+        $vertex = $this.getVertexByKey($startVertex.getKey())
+        return $vertex.findEdge($endVertex)
+    }
 
-    # /**
-    #  * @param {string} vertexKey
-    #  * @returns {GraphVertex}
-    #  */
-    # findVertexByKey(vertexKey) {
-    #   if (this.vertices[vertexKey]) {
-    #     return this.vertices[vertexKey];
-    #   }
+    [Object] findVertexByKey($vertexKey) {
+        if ($this.vertices[$vertexKey]) {
+            return $this.vertices[$vertexKey]
+        }
 
-    #   return null;
-    # }
+        return $null
+    }
 
-    # /**
-    #  * @return {number}
-    #  */
     # getWeight() {
     #   return this.getAllEdges().reduce((weight, graphEdge) => {
     #     return weight + graphEdge.weight;
@@ -146,13 +122,13 @@ class Graph {
     # reverse() {
     #   /** @param {GraphEdge} edge */
     #   this.getAllEdges().forEach((edge) => {
-    #     // Delete straight edge from graph and from vertices.
+    #     # Delete straight edge from graph and from vertices.
     #     this.deleteEdge(edge);
 
-    #     // Reverse the edge.
+    #     # Reverse the edge.
     #     edge.reverse();
 
-    #     // Add reversed edge back to the graph and its vertices.
+    #     # Add reversed edge back to the graph and its vertices.
     #     this.addEdge(edge);
     #   });
 
@@ -178,13 +154,13 @@ class Graph {
     #   const vertices = this.getAllVertices();
     #   const verticesIndices = this.getVerticesIndices();
 
-    #   // Init matrix with infinities meaning that there is no ways of
-    #   // getting from one vertex to another yet.
+    #   # Init matrix with infinities meaning that there is no ways of
+    #   # getting from one vertex to another yet.
     #   const adjacencyMatrix = Array(vertices.length).fill(null).map(() => {
     #     return Array(vertices.length).fill(Infinity);
     #   });
 
-    #   // Fill the columns.
+    #   # Fill the columns.
     #   vertices.forEach((vertex, vertexIndex) => {
     #     vertex.getNeighbors().forEach((neighbor) => {
     #       const neighborIndex = verticesIndices[neighbor.getKey()];
@@ -195,10 +171,7 @@ class Graph {
     #   return adjacencyMatrix;
     # }
 
-    # /**
-    #  * @return {string}
-    #  */
-    # toString() {
-    #   return Object.keys(this.vertices).toString();
-    # }
+    [string] toString() {
+        return $this.vertices.keys -join ","
+    }
 }
