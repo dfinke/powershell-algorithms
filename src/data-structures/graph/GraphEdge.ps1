@@ -1,14 +1,22 @@
 class GraphEdge {
-    # /**
-    #  * @param {GraphVertex} startVertex
-    #  * @param {GraphVertex} endVertex
-    #  * @param {number} [weight=1]
-    #  */
-    # constructor(startVertex, endVertex, weight = 0) {
-    #   this.startVertex = startVertex;
-    #   this.endVertex = endVertex;
-    #   this.weight = weight;
-    # }
+
+    $startVertex
+    $endVertex
+    $weight
+
+    GraphEdge($startVertex, $endVertex) {
+        $this.DoInit($startVertex, $endVertex, 0)
+    }
+
+    GraphEdge($startVertex, $endVertex, $weight) {
+        $this.DoInit($startVertex, $endVertex, $weight)
+    }
+
+    hidden DoInit($startVertex, $endVertex, $weight) {
+        $this.startVertex = $startVertex
+        $this.endVertex = $endVertex
+        $this.weight = $weight
+    }
 
     # /**
     #  * @return {string}

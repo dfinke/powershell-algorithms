@@ -35,112 +35,104 @@ class GraphVertex {
         $this.edges = New-Object LinkedList $edgeComparator
     }
 
-    # /**
-    #  * @param {GraphEdge} edge
-    #  * @returns {GraphVertex}
-    #  */
-    # addEdge(edge) {
-    #   this.edges.append(edge);
+    [object] addEdge($edge) {
+        $this.edges.append($edge)
 
-    #   return this;
-    # }
+        return $this
+    }
 
-    # /**
-    #  * @param {GraphEdge} edge
-    #  */
-    # deleteEdge(edge) {
-    #   this.edges.delete(edge);
-    # }
+    deleteEdge($edge) {
+        $this.edges.delete($edge)
+    }
 
-    # /**
-    #  * @returns {GraphVertex[]}
-    #  */
-    # getNeighbors() {
-    #   const edges = this.edges.toArray();
+    [object] getNeighbors() {
+        $targetEdges = $this.edges.toArray()
 
-    #   /** @param {LinkedListNode} node */
-    #   const neighborsConverter = (node) => {
-    #     return node.value.startVertex === this ? node.value.endVertex : node.value.startVertex;
-    #   };
+        $neighborsConverter = {
+            param($node)
 
-    #   # Return either start or end vertex.
-    #   # For undirected graphs it is possible that current vertex will be the end one.
-    #   return edges.map(neighborsConverter);
-    # }
+            if ($node.value.startVertex -eq $this) {
+                return $node.value.endVertex
+            }
 
-    # /**
-    #  * @return {GraphEdge[]}
-    #  */
-    # getEdges() {
-    #   return this.edges.toArray().map(linkedListNode => linkedListNode.value);
-    # }
+            return $node.value.startVertex
+        }
 
-    # /**
-    #  * @return {number}
-    #  */
-    # getDegree() {
-    #   return this.edges.toArray().length;
-    # }
+        # Return either start or end vertex.
+        # For undirected graphs it is possible that current vertex will be the end one.
+        return @($targetEdges.ForEach{&$neighborsConverter $_})
+    }
 
-    # /**
-    #  * @param {GraphEdge} requiredEdge
-    #  * @returns {boolean}
-    #  */
-    # hasEdge(requiredEdge) {
-    #   const edgeNode = this.edges.find({
-    #     callback: edge => edge === requiredEdge,
-    #   });
+    [object] getEdges() {
+        return $this.edges.toArray().value
+    }
 
-    #   return !!edgeNode;
-    # }
 
-    # /**
-    #  * @param {GraphVertex} vertex
-    #  * @returns {boolean}
-    #  */
-    # hasNeighbor(vertex) {
-    #   const vertexNode = this.edges.find({
-    #     callback: edge => edge.startVertex === vertex || edge.endVertex === vertex,
-    #   });
+    [object] getDegree() {
+        return $this.edges.toArray().Count
+    }
 
-    #   return !!vertexNode;
-    # }
+    [bool] hasEdge($requiredEdge) {
+        $edgeNode = $this.edges.find($null, {
+                param($edge)
+                $edge -eq $requiredEdge
+            })
 
-    # /**
-    #  * @param {GraphVertex} vertex
-    #  * @returns {(GraphEdge|null)}
-    #  */
-    # findEdge(vertex) {
-    #   const edgeFinder = (edge) => {
-    #     return edge.startVertex === vertex || edge.endVertex === vertex;
-    #   };
+        return !!$edgeNode
+    }
 
-    #   const edge = this.edges.find({ callback: edgeFinder });
+    [object] hasNeighbor($vertex) {
+        $vertexNode = $this.edges.find($null, {
+                param($edge)
 
-    #   return edge ? edge.value : null;
-    # }
+                $edge.startVertex -eq $vertex -or $edge.endVertex -eq $vertex
+            })
 
-    # /**
-    #  * @returns {string}
-    #  */
-    # getKey() {
-    #   return this.value;
-    # }
+        return !!$vertexNode
+    }
 
-    # /**
-    #  * @return {GraphVertex}
-    #  */
-    # deleteAllEdges() {
-    #   this.getEdges().forEach(edge => this.deleteEdge(edge));
+    [object] findEdge($vertex) {
+      $edgeFinder ={
+          param($edge)
 
-    #   return this;
-    # }
+          return $edge.startVertex -eq $vertex -Or $edge.endVertex -eq $vertex
+      };
 
-    # /**
-    #  * @param {function} [callback]
-    #  * @returns {string}
-    #  */
-    # toString(callback) {
-    #   return callback ? callback(this.value) : `${this.value}`;
-    # }
+      $targetEdge = $this.edges.find($null, $edgeFinder)
+
+      if($targetEdge) {
+        return $targetEdge.value
+      }
+
+      return $null
+      #return edge ? edge.value : null;
+    }
+
+    [object] getKey() {
+        return $this.value
+    }
+
+    [object] deleteAllEdges() {
+
+        foreach ($edge in $this.getEdges()) {
+            $this.deleteEdge($edge)
+        }
+
+        return $this
+    }
+
+    [string] toString() {
+        return $this.toString($null)
+    }
+
+    [string] toString($callback) {
+        #return $null
+        # return callback ? callback(this.value) : `$ {this.value}`;
+
+        if ($callback) {
+            return &$callback($this.value)
+        }
+
+        return $this.value -join '_'
+    }
 }
