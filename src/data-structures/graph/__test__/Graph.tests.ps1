@@ -179,47 +179,47 @@ describe 'Graph' {
     }
 
     it 'should calculate total graph weight for default graph' {
-        # const graph = new Graph();
+        $graph = New-Object Graph
 
-        # const vertexA = new GraphVertex('A');
-        # const vertexB = new GraphVertex('B');
-        # const vertexC = new GraphVertex('C');
-        # const vertexD = new GraphVertex('D');
+        $vertexA = New-Object GraphVertex 'A'
+        $vertexB = New-Object GraphVertex 'B'
+        $vertexC = New-Object GraphVertex 'C'
+        $vertexD = New-Object GraphVertex 'D'
 
-        # const edgeAB = new GraphEdge(vertexA, vertexB);
-        # const edgeBC = new GraphEdge(vertexB, vertexC);
-        # const edgeCD = new GraphEdge(vertexC, vertexD);
-        # const edgeAD = new GraphEdge(vertexA, vertexD);
+        $edgeAB = New-Object GraphEdge $vertexA, $vertexB
+        $edgeBC = New-Object GraphEdge $vertexB, $vertexC
+        $edgeCD = New-Object GraphEdge $vertexC, $vertexD
+        $edgeAD = New-Object GraphEdge $vertexA, $vertexD
 
-        # graph
-        #   .addEdge(edgeAB)
-        #   .addEdge(edgeBC)
-        #   .addEdge(edgeCD)
-        #   .addEdge(edgeAD);
+        $graph.
+          addEdge($edgeAB).
+          addEdge($edgeBC).
+          addEdge($edgeCD).
+          addEdge($edgeAD)
 
-        # expect(graph.getWeight()).toBe(0);
+        $graph.getWeight() | Should Be 0
     }
 
     it 'should calculate total graph weight for weighted graph' {
-        # const graph = new Graph();
+        $graph = New-Object Graph
 
-        # const vertexA = new GraphVertex('A');
-        # const vertexB = new GraphVertex('B');
-        # const vertexC = new GraphVertex('C');
-        # const vertexD = new GraphVertex('D');
+        $vertexA = New-Object GraphVertex 'A'
+        $vertexB = New-Object GraphVertex 'B'
+        $vertexC = New-Object GraphVertex 'C'
+        $vertexD = New-Object GraphVertex 'D'
 
-        # const edgeAB = new GraphEdge(vertexA, vertexB, 1);
-        # const edgeBC = new GraphEdge(vertexB, vertexC, 2);
-        # const edgeCD = new GraphEdge(vertexC, vertexD, 3);
-        # const edgeAD = new GraphEdge(vertexA, vertexD, 4);
+        $edgeAB = New-Object GraphEdge $vertexA, $vertexB, 1
+        $edgeBC = New-Object GraphEdge $vertexB, $vertexC, 2
+        $edgeCD = New-Object GraphEdge $vertexC, $vertexD, 3
+        $edgeAD = New-Object GraphEdge $vertexA, $vertexD, 4
 
-        # graph
-        #   .addEdge(edgeAB)
-        #   .addEdge(edgeBC)
-        #   .addEdge(edgeCD)
-        #   .addEdge(edgeAD);
+        $graph.
+          addEdge($edgeAB).
+          addEdge($edgeBC).
+          addEdge($edgeCD).
+          addEdge($edgeAD)
 
-        # expect(graph.getWeight()).toBe(10);
+        $graph.getWeight() | Should Be 10
     }
 
     it 'should be possible to delete edges from graph' {

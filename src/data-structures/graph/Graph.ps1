@@ -109,11 +109,14 @@ class Graph {
         return $null
     }
 
-    # getWeight() {
-    #   return this.getAllEdges().reduce((weight, graphEdge) => {
-    #     return weight + graphEdge.weight;
-    #   }, 0);
-    # }
+    [object] getWeight() {
+        $weight = 0
+        foreach ($graphEdge in $this.getAllEdges()) {
+            $weight += $graphEdge.weight
+        }
+
+        return $weight
+    }
 
     # /**
     #  * Reverse all the edges in directed graph.
