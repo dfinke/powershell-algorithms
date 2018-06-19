@@ -12,7 +12,7 @@ class Graph {
     }
 
     DoInit($isDirected) {
-        $this.vertices = @{}
+        $this.vertices = [Ordered]@{}
         $this.edges = [Ordered]@{}
         $this.isDirected = $isDirected
     }
@@ -116,61 +116,56 @@ class Graph {
         return $weight
     }
 
-    # /**
-    #  * Reverse all the edges in directed graph.
-    #  * @return {Graph}
-    #  */
-    # reverse() {
-    #   /** @param {GraphEdge} edge */
-    #   this.getAllEdges().forEach((edge) => {
-    #     # Delete straight edge from graph and from vertices.
-    #     this.deleteEdge(edge);
+    [object] reverse() {
 
-    #     # Reverse the edge.
-    #     edge.reverse();
+        foreach ($edge in $this.getAllEdges()) {
+            # Delete straight edge from graph and from vertices.
+            $this.deleteEdge($edge)
 
-    #     # Add reversed edge back to the graph and its vertices.
-    #     this.addEdge(edge);
-    #   });
+            # Reverse the edge.
+            $edge.reverse()
 
-    #   return this;
-    # }
+            # Add reversed edge back to the graph and its vertices.
+            $this.addEdge($edge)
+        }
 
-    # /**
-    #  * @return {object}
-    #  */
-    # getVerticesIndices() {
-    #   const verticesIndices = {};
-    #   this.getAllVertices().forEach((vertex, index) => {
-    #     verticesIndices[vertex.getKey()] = index;
-    #   });
+        return $this
+    }
 
-    #   return verticesIndices;
-    # }
+    [System.Collections.Specialized.OrderedDictionary] getVerticesIndices() {
+        $verticesIndices = [Ordered]@{}
 
-    # /**
-    #  * @return {*[][]}
-    #  */
-    # getAdjacencyMatrix() {
-    #   const vertices = this.getAllVertices();
-    #   const verticesIndices = this.getVerticesIndices();
+        $allVertices = $this.getAllVertices()
 
-    #   # Init matrix with infinities meaning that there is no ways of
-    #   # getting from one vertex to another yet.
-    #   const adjacencyMatrix = Array(vertices.length).fill(null).map(() => {
-    #     return Array(vertices.length).fill(Infinity);
-    #   });
+        for ($idx = 0; $idx -lt $allVertices.Count; $idx += 1) {
+            $item = $allVertices[$idx]
+            $verticesIndices.($item.getKey()) = $idx
+        }
 
-    #   # Fill the columns.
-    #   vertices.forEach((vertex, vertexIndex) => {
-    #     vertex.getNeighbors().forEach((neighbor) => {
-    #       const neighborIndex = verticesIndices[neighbor.getKey()];
-    #       adjacencyMatrix[vertexIndex][neighborIndex] = this.findEdge(vertex, neighbor).weight;
-    #     });
-    #   });
+        return $verticesIndices
+    }
 
-    #   return adjacencyMatrix;
-    # }
+    [object] getAdjacencyMatrix() {
+        $targetVertices = $this.getAllVertices()
+        $verticesIndices = $this.getVerticesIndices()
+
+        #   # Init matrix with infinities meaning that there is no ways of
+        #   # getting from one vertex to another yet.
+        #   $adjacencyMatrix = Array(vertices.length).fill(null).map(() => {
+        #     return Array(vertices.length).fill(Infinity);
+        #   });
+
+        #   # Fill the columns.
+        #   $vertices.forEach((vertex, vertexIndex) => {
+        #     vertex.getNeighbors().forEach((neighbor) => {
+        #       $neighborIndex = $verticesIndices[$neighbor.getKey()];
+        #       $adjacencyMatrix[$vertexIndex][$neighborIndex] = $this.findEdge($vertex, $neighbor).weight;
+        #     });
+        #   });
+
+        return $null
+        # return $adjacencyMatrix
+    }
 
     [string] toString() {
         return $this.vertices.keys -join ","

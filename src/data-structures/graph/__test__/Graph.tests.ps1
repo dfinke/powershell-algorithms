@@ -168,8 +168,8 @@ describe 'Graph' {
         $edgeBC = New-Object GraphEdge $vertexB, $vertexC
 
         $graph.
-          addEdge($edgeAB).
-          addEdge($edgeBC)
+        addEdge($edgeAB).
+        addEdge($edgeBC)
 
         $edges = $graph.getAllEdges()
 
@@ -192,10 +192,10 @@ describe 'Graph' {
         $edgeAD = New-Object GraphEdge $vertexA, $vertexD
 
         $graph.
-          addEdge($edgeAB).
-          addEdge($edgeBC).
-          addEdge($edgeCD).
-          addEdge($edgeAD)
+        addEdge($edgeAB).
+        addEdge($edgeBC).
+        addEdge($edgeCD).
+        addEdge($edgeAD)
 
         $graph.getWeight() | Should Be 0
     }
@@ -214,10 +214,10 @@ describe 'Graph' {
         $edgeAD = New-Object GraphEdge $vertexA, $vertexD, 4
 
         $graph.
-          addEdge($edgeAB).
-          addEdge($edgeBC).
-          addEdge($edgeCD).
-          addEdge($edgeAD)
+        addEdge($edgeAB).
+        addEdge($edgeBC).
+        addEdge($edgeCD).
+        addEdge($edgeAD)
 
         $graph.getWeight() | Should Be 10
     }
@@ -234,9 +234,9 @@ describe 'Graph' {
         $edgeAC = New-Object GraphEdge $vertexA, $vertexC
 
         $graph.
-          addEdge($edgeAB).
-          addEdge($edgeBC).
-          addEdge($edgeAC)
+        addEdge($edgeAB).
+        addEdge($edgeBC).
+        addEdge($edgeAC)
 
         $graph.getAllEdges().Count | Should Be 3
 
@@ -249,107 +249,110 @@ describe 'Graph' {
 
     it 'should should throw an error when trying to delete not existing edge' {
         function deleteNotExistingEdge {
-          $graph = New-Object Graph
+            $graph = New-Object Graph
 
-          $vertexA = New-Object GraphVertex 'A'
-          $vertexB = New-Object GraphVertex 'B'
-          $vertexC = New-Object GraphVertex 'C'
+            $vertexA = New-Object GraphVertex 'A'
+            $vertexB = New-Object GraphVertex 'B'
+            $vertexC = New-Object GraphVertex 'C'
 
-          $edgeAB = New-Object GraphEdge $vertexA, $vertexB
-          $edgeBC = New-Object GraphEdge $vertexB, $vertexC
+            $edgeAB = New-Object GraphEdge $vertexA, $vertexB
+            $edgeBC = New-Object GraphEdge $vertexB, $vertexC
 
-          $graph.addEdge($edgeAB)
-          $graph.deleteEdge($edgeBC)
+            $graph.addEdge($edgeAB)
+            $graph.deleteEdge($edgeBC)
         }
 
         {deleteNotExistingEdge} | Should Throw 'Edge not found in graph'
     }
 
     it 'should be possible to reverse graph' {
-        # const vertexA = new GraphVertex('A');
-        # const vertexB = new GraphVertex('B');
-        # const vertexC = new GraphVertex('C');
-        # const vertexD = new GraphVertex('D');
+        $vertexA = New-Object GraphVertex 'A'
+        $vertexB = New-Object GraphVertex 'B'
+        $vertexC = New-Object GraphVertex 'C'
+        $vertexD = New-Object GraphVertex 'D'
 
-        # const edgeAB = new GraphEdge(vertexA, vertexB);
-        # const edgeAC = new GraphEdge(vertexA, vertexC);
-        # const edgeCD = new GraphEdge(vertexC, vertexD);
+        $edgeAB = New-Object GraphEdge $vertexA, $vertexB
+        $edgeAC = New-Object GraphEdge $vertexA, $vertexC
+        $edgeCD = New-Object GraphEdge $vertexC, $vertexD
 
-        # const graph = new Graph(true);
-        # graph
-        #   .addEdge(edgeAB)
-        #   .addEdge(edgeAC)
-        #   .addEdge(edgeCD);
+        $graph = New-Object Graph $true
+        $graph.
+        addEdge($edgeAB).
+        addEdge($edgeAC).
+        addEdge($edgeCD)
 
-        # expect(graph.toString()).toBe('A,B,C,D');
-        # expect(graph.getAllEdges().length).toBe(3);
-        # expect(graph.getNeighbors(vertexA).length).toBe(2);
-        # expect(graph.getNeighbors(vertexA)[0].getKey()).toBe(vertexB.getKey());
-        # expect(graph.getNeighbors(vertexA)[1].getKey()).toBe(vertexC.getKey());
-        # expect(graph.getNeighbors(vertexB).length).toBe(0);
-        # expect(graph.getNeighbors(vertexC).length).toBe(1);
-        # expect(graph.getNeighbors(vertexC)[0].getKey()).toBe(vertexD.getKey());
-        # expect(graph.getNeighbors(vertexD).length).toBe(0);
+        $graph.toString() | Should Be 'A,B,C,D'
+        $graph.getAllEdges().Count | Should Be 3
+        $graph.getNeighbors($vertexA).Count | Should Be 2
+        $graph.getNeighbors($vertexA)[0].getKey() | Should Be $vertexB.getKey()
+        $graph.getNeighbors($vertexA)[1].getKey() | Should Be $vertexC.getKey()
+        $graph.getNeighbors($vertexB).Count | Should Be 0
+        $graph.getNeighbors($vertexC).Count | Should Be 1
+        $graph.getNeighbors($vertexC)[0].getKey() | Should Be $vertexD.getKey()
+        $graph.getNeighbors($vertexD).Count | Should Be 0
 
-        # graph.reverse();
+        $graph.reverse()
 
-        # expect(graph.toString()).toBe('A,B,C,D');
-        # expect(graph.getAllEdges().length).toBe(3);
-        # expect(graph.getNeighbors(vertexA).length).toBe(0);
-        # expect(graph.getNeighbors(vertexB).length).toBe(1);
-        # expect(graph.getNeighbors(vertexB)[0].getKey()).toBe(vertexA.getKey());
-        # expect(graph.getNeighbors(vertexC).length).toBe(1);
-        # expect(graph.getNeighbors(vertexC)[0].getKey()).toBe(vertexA.getKey());
-        # expect(graph.getNeighbors(vertexD).length).toBe(1);
-        # expect(graph.getNeighbors(vertexD)[0].getKey()).toBe(vertexC.getKey());
+        $graph.toString() | Should Be 'A,B,C,D'
+        $graph.getAllEdges().Count | Should Be 3
+        $graph.getNeighbors($vertexA).Count | Should Be 0
+        $graph.getNeighbors($vertexB).Count | Should Be 1
+        $graph.getNeighbors($vertexB)[0].getKey() | Should Be $vertexA.getKey()
+        $graph.getNeighbors($vertexC).Count | Should Be 1
+        $graph.getNeighbors($vertexC)[0].getKey() | Should Be $vertexA.getKey()
+        $graph.getNeighbors($vertexD).Count | Should Be 1
+        $graph.getNeighbors($vertexD)[0].getKey() | Should Be $vertexC.getKey()
     }
 
     it 'should return vertices indices' {
-        # const vertexA = new GraphVertex('A');
-        # const vertexB = new GraphVertex('B');
-        # const vertexC = new GraphVertex('C');
-        # const vertexD = new GraphVertex('D');
+        $vertexA = New-Object GraphVertex 'A'
+        $vertexB = New-Object GraphVertex 'B'
+        $vertexC = New-Object GraphVertex 'C'
+        $vertexD = New-Object GraphVertex 'D'
 
-        # const edgeAB = new GraphEdge(vertexA, vertexB);
-        # const edgeBC = new GraphEdge(vertexB, vertexC);
-        # const edgeCD = new GraphEdge(vertexC, vertexD);
-        # const edgeBD = new GraphEdge(vertexB, vertexD);
+        $edgeAB = New-Object GraphEdge $vertexA, $vertexB
+        $edgeBC = New-Object GraphEdge $vertexB, $vertexC
+        $edgeCD = New-Object GraphEdge $vertexC, $vertexD
+        $edgeBD = New-Object GraphEdge $vertexB, $vertexD
 
-        # const graph = new Graph();
-        # graph
-        #   .addEdge(edgeAB)
-        #   .addEdge(edgeBC)
-        #   .addEdge(edgeCD)
-        #   .addEdge(edgeBD);
+        $graph = New-Object Graph
+        $graph.
+        addEdge($edgeAB).
+        addEdge($edgeBC).
+        addEdge($edgeCD).
+        addEdge($edgeBD)
 
-        # const verticesIndices = graph.getVerticesIndices();
-        # expect(verticesIndices).toEqual({
-        #   A: 0,
-        #   B: 1,
-        #   C: 2,
-        #   D: 3,
-        # });
+        $verticesIndices = $graph.getVerticesIndices()
+
+        $verticesIndices.Count | Should Be 4
+        #$verticesIndices | Should Be [Ordered]@{
+        #    A = 0
+        #    B = 1
+        #    C = 2
+        #    D = 3
+        #}
     }
 
     it 'should generate adjacency matrix for undirected graph' {
-        # const vertexA = new GraphVertex('A');
-        # const vertexB = new GraphVertex('B');
-        # const vertexC = new GraphVertex('C');
-        # const vertexD = new GraphVertex('D');
+        $vertexA = New-Object GraphVertex 'A'
+        $vertexB = New-Object GraphVertex 'B'
+        $vertexC = New-Object GraphVertex 'C'
+        $vertexD = New-Object GraphVertex 'D'
 
-        # const edgeAB = new GraphEdge(vertexA, vertexB);
-        # const edgeBC = new GraphEdge(vertexB, vertexC);
-        # const edgeCD = new GraphEdge(vertexC, vertexD);
-        # const edgeBD = new GraphEdge(vertexB, vertexD);
+        $edgeAB = New-Object GraphEdge $vertexA, $vertexB
+        $edgeBC = New-Object GraphEdge $vertexB, $vertexC
+        $edgeCD = New-Object GraphEdge $vertexC, $vertexD
+        $edgeBD = New-Object GraphEdge $vertexB, $vertexD
 
-        # const graph = new Graph();
-        # graph
-        #   .addEdge(edgeAB)
-        #   .addEdge(edgeBC)
-        #   .addEdge(edgeCD)
-        #   .addEdge(edgeBD);
+        $graph = New-Object Graph
+        $graph.
+            addEdge($edgeAB).
+            addEdge($edgeBC).
+            addEdge($edgeCD).
+            addEdge($edgeBD)
 
-        # const adjacencyMatrix = graph.getAdjacencyMatrix();
+        $adjacencyMatrix = $graph.getAdjacencyMatrix()
+
         # expect(adjacencyMatrix).toEqual([
         #   [Infinity, 0, Infinity, Infinity],
         #   [0, Infinity, 0, 0],
