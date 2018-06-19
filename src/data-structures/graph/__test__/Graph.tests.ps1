@@ -223,46 +223,46 @@ describe 'Graph' {
     }
 
     it 'should be possible to delete edges from graph' {
-        # const graph = new Graph();
+        $graph = New-Object Graph
 
-        # const vertexA = new GraphVertex('A');
-        # const vertexB = new GraphVertex('B');
-        # const vertexC = new GraphVertex('C');
+        $vertexA = New-Object GraphVertex 'A'
+        $vertexB = New-Object GraphVertex 'B'
+        $vertexC = New-Object GraphVertex 'C'
 
-        # const edgeAB = new GraphEdge(vertexA, vertexB);
-        # const edgeBC = new GraphEdge(vertexB, vertexC);
-        # const edgeAC = new GraphEdge(vertexA, vertexC);
+        $edgeAB = New-Object GraphEdge $vertexA, $vertexB
+        $edgeBC = New-Object GraphEdge $vertexB, $vertexC
+        $edgeAC = New-Object GraphEdge $vertexA, $vertexC
 
-        # graph
-        #   .addEdge(edgeAB)
-        #   .addEdge(edgeBC)
-        #   .addEdge(edgeAC);
+        $graph.
+          addEdge($edgeAB).
+          addEdge($edgeBC).
+          addEdge($edgeAC)
 
-        # expect(graph.getAllEdges().length).toBe(3);
+        $graph.getAllEdges().Count | Should Be 3
 
-        # graph.deleteEdge(edgeAB);
+        $graph.deleteEdge($edgeAB)
 
-        # expect(graph.getAllEdges().length).toBe(2);
-        # expect(graph.getAllEdges()[0].getKey()).toBe(edgeBC.getKey());
-        # expect(graph.getAllEdges()[1].getKey()).toBe(edgeAC.getKey());
+        $graph.getAllEdges().Count | Should Be 2
+        $graph.getAllEdges()[0].getKey() | Should Be $edgeBC.getKey()
+        $graph.getAllEdges()[1].getKey() | Should Be $edgeAC.getKey()
     }
 
     it 'should should throw an error when trying to delete not existing edge' {
-        # function deleteNotExistingEdge() {
-        #   const graph = new Graph();
+        function deleteNotExistingEdge {
+          $graph = New-Object Graph
 
-        #   const vertexA = new GraphVertex('A');
-        #   const vertexB = new GraphVertex('B');
-        #   const vertexC = new GraphVertex('C');
+          $vertexA = New-Object GraphVertex 'A'
+          $vertexB = New-Object GraphVertex 'B'
+          $vertexC = New-Object GraphVertex 'C'
 
-        #   const edgeAB = new GraphEdge(vertexA, vertexB);
-        #   const edgeBC = new GraphEdge(vertexB, vertexC);
+          $edgeAB = New-Object GraphEdge $vertexA, $vertexB
+          $edgeBC = New-Object GraphEdge $vertexB, $vertexC
 
-        #   graph.addEdge(edgeAB);
-        #   graph.deleteEdge(edgeBC);
-        # }
+          $graph.addEdge($edgeAB)
+          $graph.deleteEdge($edgeBC)
+        }
 
-        # expect(deleteNotExistingEdge).toThrowError();
+        {deleteNotExistingEdge} | Should Throw 'Edge not found in graph'
     }
 
     it 'should be possible to reverse graph' {

@@ -13,7 +13,7 @@ class Graph {
 
     DoInit($isDirected) {
         $this.vertices = @{}
-        $this.edges = @{}
+        $this.edges = [Ordered]@{}
         $this.isDirected = $isDirected
     }
 
@@ -77,24 +77,22 @@ class Graph {
         return $this
     }
 
-    # /**
-    #  * @param {GraphEdge} edge
-    #  */
-    # deleteEdge(edge) {
-    #   # Delete edge from the list of edges.
-    #   if ($this.edges[edge.getKey()]) {
-    #     delete $this.edges[edge.getKey()];
-    #   } else {
-    #     throw new Error('Edge not found in graph');
-    #   }
+    deleteEdge($edge) {
+        # Delete edge from the list of edges.
+        if ($this.edges[$edge.getKey()]) {
+            $this.edges.Remove($edge.getKey())
+        }
+        else {
+            throw 'Edge not found in graph'
+        }
 
-    #   # Try to find and end start vertices and delete edge from them.
-    #   const startVertex = this.getVertexByKey(edge.startVertex.getKey());
-    #   const endVertex = this.getVertexByKey(edge.endVertex.getKey());
+        # Try to find and end start vertices and delete edge from them.
+        $startVertex = $this.getVertexByKey($edge.startVertex.getKey())
+        $endVertex = $this.getVertexByKey($edge.endVertex.getKey())
 
-    #   startVertex.deleteEdge(edge);
-    #   endVertex.deleteEdge(edge);
-    # }
+        $startVertex.deleteEdge($edge)
+        $endVertex.deleteEdge($edge)
+    }
 
     [object] findEdge($startVertex, $endVertex) {
         $vertex = $this.getVertexByKey($startVertex.getKey())
