@@ -346,6 +346,34 @@ describe 'Graph' {
 
         $graph = New-Object Graph
         $graph.
+        addEdge($edgeAB).
+        addEdge($edgeBC).
+        addEdge($edgeCD).
+        addEdge($edgeBD)
+
+        $adjacencyMatrix = $graph.getAdjacencyMatrix()
+        $adjacencyMatrix.Count | Should Be 5
+
+        $infinity = [double]::PositiveInfinity
+        $adjacencyMatrix[0] | Should Be @($infinity, 0, $infinity, $infinity)
+        $adjacencyMatrix[1] | Should Be @(0, $infinity, 0, 0)
+        $adjacencyMatrix[2] | Should Be @($infinity, 0, $infinity, 0)
+        $adjacencyMatrix[3] | Should Be @($infinity, 0, 0, $infinity)
+    }
+
+    it 'should generate adjacency matrix for directed graph' {
+        $vertexA = New-Object GraphVertex 'A'
+        $vertexB = New-Object GraphVertex 'B'
+        $vertexC = New-Object GraphVertex 'C'
+        $vertexD = New-Object GraphVertex 'D'
+
+        $edgeAB = New-Object GraphEdge $vertexA, $vertexB, 2
+        $edgeBC = New-Object GraphEdge $vertexB, $vertexC, 1
+        $edgeCD = New-Object GraphEdge $vertexC, $vertexD, 5
+        $edgeBD = New-Object GraphEdge $vertexB, $vertexD, 7
+
+        $graph = New-Object Graph $true
+        $graph.
             addEdge($edgeAB).
             addEdge($edgeBC).
             addEdge($edgeCD).
@@ -353,38 +381,10 @@ describe 'Graph' {
 
         $adjacencyMatrix = $graph.getAdjacencyMatrix()
 
-        # expect(adjacencyMatrix).toEqual([
-        #   [Infinity, 0, Infinity, Infinity],
-        #   [0, Infinity, 0, 0],
-        #   [Infinity, 0, Infinity, 0],
-        #   [Infinity, 0, 0, Infinity],
-        # ]);
-    }
-
-    it 'should generate adjacency matrix for directed graph' {
-        # $vertexA = new GraphVertex('A');
-        # const vertexB = new GraphVertex('B');
-        # const vertexC = new GraphVertex('C');
-        # const vertexD = new GraphVertex('D');
-
-        # const edgeAB = new GraphEdge(vertexA, vertexB, 2);
-        # const edgeBC = new GraphEdge(vertexB, vertexC, 1);
-        # const edgeCD = new GraphEdge(vertexC, vertexD, 5);
-        # const edgeBD = new GraphEdge(vertexB, vertexD, 7);
-
-        # const graph = new Graph(true);
-        # graph
-        #   .addEdge(edgeAB)
-        #   .addEdge(edgeBC)
-        #   .addEdge(edgeCD)
-        #   .addEdge(edgeBD);
-
-        # const adjacencyMatrix = graph.getAdjacencyMatrix();
-        # expect(adjacencyMatrix).toEqual([
-        #   [Infinity, 2, Infinity, Infinity],
-        #   [Infinity, Infinity, 1, 7],
-        #   [Infinity, Infinity, Infinity, 5],
-        #   [Infinity, Infinity, Infinity, Infinity],
-        # ]);
+        $infinity = [double]::PositiveInfinity
+        $adjacencyMatrix[0] | Should Be @($infinity, 2, $infinity, $infinity)
+        $adjacencyMatrix[1] | Should Be @($infinity, $infinity, 1, 7)
+        $adjacencyMatrix[2] | Should Be @($infinity, $infinity, $infinity, 5)
+        $adjacencyMatrix[3] | Should Be @($infinity, $infinity, $infinity, $infinity)
     }
 }

@@ -151,20 +151,26 @@ class Graph {
 
         #   # Init matrix with infinities meaning that there is no ways of
         #   # getting from one vertex to another yet.
-        #   $adjacencyMatrix = Array(vertices.length).fill(null).map(() => {
-        #     return Array(vertices.length).fill(Infinity);
-        #   });
 
-        #   # Fill the columns.
-        #   $vertices.forEach((vertex, vertexIndex) => {
-        #     vertex.getNeighbors().forEach((neighbor) => {
-        #       $neighborIndex = $verticesIndices[$neighbor.getKey()];
-        #       $adjacencyMatrix[$vertexIndex][$neighborIndex] = $this.findEdge($vertex, $neighbor).weight;
-        #     });
-        #   });
+        $adjacencyMatrix = (0..($targetVertices.Count)).ForEach{New-Object object[] ($targetVertices.Count)}
 
-        return $null
-        # return $adjacencyMatrix
+        for ($outer = 0; $outer -le $targetVertices.Count; $outer += 1) {
+            for ($inner = 0; $inner -le $targetVertices.Count - 1; $inner += 1) {
+                $adjacencyMatrix[$outer][$inner] = [double]::PositiveInfinity
+            }
+        }
+
+        # Fill the columns.
+        for ($vertexIndex = 0; $vertexIndex -le $targetVertices.Count - 1; $vertexIndex += 1) {
+            $vertex = $targetVertices[$vertexIndex]
+
+            foreach ($neighbor in $vertex.getNeighbors()) {
+                $neighborIndex = $verticesIndices[$neighbor.getKey()]
+                $adjacencyMatrix[$vertexIndex][$neighborIndex] = $this.findEdge($vertex, $neighbor).weight
+            }
+        }
+
+        return $adjacencyMatrix
     }
 
     [string] toString() {
