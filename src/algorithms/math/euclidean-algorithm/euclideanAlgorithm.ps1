@@ -14,9 +14,9 @@ function euclideanAlgorithm($originalA, $originalB) {
         return $a
     }
 
-    # Normally we need to do subtraction ($a - b) but to prevent
+    # Normally we need to do subtraction ($a - $b) but to prevent
     # recursion occurs to often we may shorten subtraction to ($a % $b).
-    # Since ($a % $b) is normally means that we've subtracted $b from a
+    # Since ($a % $b) normally means that we've subtracted $b from a
     # many times until the difference became less then a.
 
     if ($a -gt $b) {
