@@ -61,3 +61,7 @@ a set of rules that precisely define a sequence of operations.
   * [Levenshtein Distance](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/string/levenshtein-distance) - minimum edit distance between two sequences
   * [Hamming Distance](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/string/hamming-distance) - number of positions at which the symbols are different
   * [Longest Common Substring](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/string/longest-common-substring)
+
+* **Searches**
+  * [Linear Search](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/search/linear-search)
+  * [Binary Search](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/search/binary-search)
