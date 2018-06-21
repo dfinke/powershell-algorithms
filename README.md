@@ -63,5 +63,11 @@ a set of rules that precisely define a sequence of operations.
   * [Longest Common Substring](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/string/longest-common-substring)
 
 * **Searches**
+
   * [Linear Search](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/search/linear-search)
   * [Binary Search](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/search/binary-search)
+
+* **Graphs**
+
+  * [Bellman-Ford Algorithm](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/graph/bellman-ford) - finding shortest path to all graph vertices
+
