@@ -1,6 +1,6 @@
-. "$PSScriptRoot\..\..\..\data-structures\graph\GraphVertex.ps1"
-. "$PSScriptRoot\..\..\..\data-structures\graph\GraphEdge.ps1"
-. "$PSScriptRoot\..\..\..\data-structures\graph\Graph.ps1"
+. $PSScriptRoot\..\..\..\..\data-structures\graph\GraphVertex.ps1
+. $PSScriptRoot\..\..\..\..\data-structures\graph\GraphEdge.ps1
+. $PSScriptRoot\..\..\..\..\data-structures\graph\Graph.ps1
 . $PSScriptRoot\..\bfTravellingSalesman.ps1
 
 describe 'bfTravellingSalesman' {
