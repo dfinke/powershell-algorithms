@@ -56,6 +56,7 @@ a set of rules that precisely define a sequence of operations.
 
   * [Cartesian Product](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/sets/cartesian-product) - product of multiple sets
   * [Power Set](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/sets/power-set) - all subsets of a set
+  * [Longest Common Subsequence](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/sets/longest-common-subsequnce) (LCS)
 
 * **Strings**
 
