@@ -58,7 +58,7 @@ a set of rules that precisely define a sequence of operations.
   * [Power Set](src/algorithms/sets/power-set) - all subsets of a set
   * [Longest Common Subsequence](src/algorithms/sets/longest-common-subsequnce) (LCS)
   * [Longest Increasing subsequence](src/algorithms/sets/longest-increasing-subsequence)
-  * `A` [Maximum Subarray](src/algorithms/sets/maximum-subarray) - "Brute Force" and "Dynamic Programming" (Kadane's) versions
+  * [Maximum Subarray](src/algorithms/sets/maximum-subarray) - "Brute Force" and "Dynamic Programming" (Kadane's) versions
 
 * **Strings**
 
