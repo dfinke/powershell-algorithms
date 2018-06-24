@@ -58,6 +58,7 @@ a set of rules that precisely define a sequence of operations.
   * [Power Set](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/sets/power-set) - all subsets of a set
   * [Longest Common Subsequence](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/sets/longest-common-subsequnce) (LCS)
   * [Longest Increasing subsequence](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/sets/longest-increasing-subsequence)
+  * `A` [Maximum Subarray](src/algorithms/sets/maximum-subarray) - "Brute Force" and "Dynamic Programming" (Kadane's) versions
 
 * **Strings**
 
