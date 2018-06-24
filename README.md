@@ -28,12 +28,12 @@ Invoke-Pester -TestName LinkedList
 
 A data structure is a particular way of organizing and storing data in a computer so that it can be accessed and modified efficiently. More precisely, a data structure is a collection of data values, the relationships among them, and the functions or operations that can be applied to the data.
 
-* [Linked List](https://github.com/dfinke/powershell-algorithms/tree/master/src/data-structures/linked-list)
-* [Queue](https://github.com/dfinke/powershell-algorithms/tree/master/src/data-structures/queue)
-* [Stack](https://github.com/dfinke/powershell-algorithms/tree/master/src/data-structures/stack)
-* [Hash Table](https://github.com/dfinke/powershell-algorithms/tree/master/src/data-structures/hash-table)
-* [Graph](https://github.com/dfinke/powershell-algorithms/tree/master/src/data-structures/graph) (both directed and undirected)
-* [Disjoint Set](https://github.com/dfinke/powershell-algorithms/tree/master/src/data-structures/disjoint-set)
+* [Linked List](src/data-structures/linked-list)
+* [Queue](src/data-structures/queue)
+* [Stack](src/data-structures/stack)
+* [Hash Table](src/data-structures/hash-table)
+* [Graph](src/data-structures/graph) (both directed and undirected)
+* [Disjoint Set](src/data-structures/disjoint-set)
 
 ## Algorithms
 
@@ -43,35 +43,35 @@ a set of rules that precisely define a sequence of operations.
 ### Algorithms by Topic
 
 * **Math**
-  * [Factorial](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/factorial)
-  * [Fibonacci Number](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/fibonacci)
-  * [Primality Test](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/primality-test) (trial division method)
-  * [Euclidean Algorithm](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/euclidean-algorithm) - calculate the Greatest Common Divisor (GCD)
-  * [Least Common Multiple](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/least-common-multiple) (LCM)
-  * *~~[Integer Partition](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/integer-partition)~~*
-  * *~~[Sieve of Eratosthenes](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/sieve-of-eratosthenes) - finding all prime numbers up to any given limit~~*
-  * *~~[Is Power of Two](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/math/is-power-of-two) - check if the number is power of two (naive and bitwise algorithms)~~*
+  * [Factorial](src/algorithms/math/factorial)
+  * [Fibonacci Number](src/algorithms/math/fibonacci)
+  * [Primality Test](src/algorithms/math/primality-test) (trial division method)
+  * [Euclidean Algorithm](src/algorithms/math/euclidean-algorithm) - calculate the Greatest Common Divisor (GCD)
+  * [Least Common Multiple](src/algorithms/math/least-common-multiple) (LCM)
+  * *~~[Integer Partition](src/algorithms/math/integer-partition)~~*
+  * *~~[Sieve of Eratosthenes](src/algorithms/math/sieve-of-eratosthenes) - finding all prime numbers up to any given limit~~*
+  * *~~[Is Power of Two](src/algorithms/math/is-power-of-two) - check if the number is power of two (naive and bitwise algorithms)~~*
 
 * **Sets**
 
-  * [Cartesian Product](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/sets/cartesian-product) - product of multiple sets
-  * [Power Set](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/sets/power-set) - all subsets of a set
-  * [Longest Common Subsequence](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/sets/longest-common-subsequnce) (LCS)
-  * [Longest Increasing subsequence](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/sets/longest-increasing-subsequence)
+  * [Cartesian Product](src/algorithms/sets/cartesian-product) - product of multiple sets
+  * [Power Set](src/algorithms/sets/power-set) - all subsets of a set
+  * [Longest Common Subsequence](src/algorithms/sets/longest-common-subsequnce) (LCS)
+  * [Longest Increasing subsequence](src/algorithms/sets/longest-increasing-subsequence)
   * `A` [Maximum Subarray](src/algorithms/sets/maximum-subarray) - "Brute Force" and "Dynamic Programming" (Kadane's) versions
 
 * **Strings**
 
-  * [Levenshtein Distance](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/string/levenshtein-distance) - minimum edit distance between two sequences
-  * [Hamming Distance](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/string/hamming-distance) - number of positions at which the symbols are different
-  * [Longest Common Substring](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/string/longest-common-substring)
+  * [Levenshtein Distance](src/algorithms/string/levenshtein-distance) - minimum edit distance between two sequences
+  * [Hamming Distance](src/algorithms/string/hamming-distance) - number of positions at which the symbols are different
+  * [Longest Common Substring](src/algorithms/string/longest-common-substring)
 
 * **Searches**
 
-  * [Linear Search](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/search/linear-search)
-  * [Binary Search](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/search/binary-search)
+  * [Linear Search](src/algorithms/search/linear-search)
+  * [Binary Search](src/algorithms/search/binary-search)
 
 * **Graphs**
 
-  * [Bellman-Ford Algorithm](https://github.com/dfinke/powershell-algorithms/tree/master/src/algorithms/graph/bellman-ford) - finding shortest path to all graph vertices
+  * [Bellman-Ford Algorithm](src/algorithms/graph/bellman-ford) - finding shortest path to all graph vertices
 
