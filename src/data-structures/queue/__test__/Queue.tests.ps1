@@ -21,12 +21,9 @@ describe 'Queue' {
     it 'should be possible to enqueue/dequeue objects' {
         $queue = New-Object Queue
 
-        $queue.enqueue(@{ value= 'test1'; key= 'key1' })
-        $queue.enqueue(@{ value= 'test2'; key= 'key2' })
+        $queue.enqueue(@{ value = 'test1'; key = 'key1' })
+        $queue.enqueue(@{ value = 'test2'; key = 'key2' })
 
-        # const stringifier = value => `${value.key}:${value.value}`;
-
-        # expect(queue.toString(stringifier)).toBe('key1:test1,key2:test2');
         $queue.dequeue().value | Should Be 'test1'
         $queue.dequeue().value | Should Be 'test2'
     }

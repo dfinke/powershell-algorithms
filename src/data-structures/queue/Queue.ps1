@@ -31,9 +31,7 @@ class Queue {
         }
 
         return $null
-        #return removedHead ? removedHead.value : null;
     }
-
 
     [string] toString() {
         return $this.toString($null)
