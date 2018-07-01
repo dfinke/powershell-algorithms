@@ -1,54 +1,43 @@
 . $PSScriptRoot\..\..\..\data-structures\queue\Queue.ps1
 
-function initCallbacks($callbacks = @{}) {
-    #   const initiatedCallback = callbacks;
+function enterVertex {}
+function leaveVertex {}
 
-    #   const stubCallback = () => {};
+function allowTraversal {
+    $seen = @{}
 
-    #   const allowTraversalCallback = (
-    #     () => {
-    #       const seen = {};
-    #       return ({ nextVertex }) => {
-    #         if (!seen[nextVertex.getKey()]) {
-    #           seen[nextVertex.getKey()] = true;
-    #           return true;
-    #         }
-    #         return false;
-    #       };
-    #     }
-    #   )();
+    if (!$seen[$nextVertex.getKey()]) {
+        $seen[$nextVertex.getKey()] = $true
+        return $true
+    }
 
-    #   initiatedCallback.allowTraversal = callbacks.allowTraversal || allowTraversalCallback;
-    #   initiatedCallback.enterVertex = callbacks.enterVertex || stubCallback;
-    #   initiatedCallback.leaveVertex = callbacks.leaveVertex || stubCallback;
-
-    #   return initiatedCallback;
+    return $false
 }
 
-function breadthFirstSearch($graph, $startVertex, $originalCallbacks) {
-    #   const callbacks = initCallbacks(originalCallbacks);
-    #   const vertexQueue = new Queue();
+function breadthFirstSearch($graph, $startVertex) {
+    $vertexQueue = New-Object Queue
 
-    #   // Do initial queue setup.
-    #   vertexQueue.enqueue(startVertex);
+    # Do initial queue setup.
+    $vertexQueue.enqueue($startVertex)
+    $previousVertex = $null
 
-    #   let previousVertex = null;
+    # Traverse all vertices from the queue.
+    while (!$vertexQueue.isEmpty()) {
+        $currentVertex = $vertexQueue.dequeue()
 
-    #   // Traverse all vertices from the queue.
-    #   while (!vertexQueue.isEmpty()) {
-    #     const currentVertex = vertexQueue.dequeue();
-    #     callbacks.enterVertex({ currentVertex, previousVertex });
+        enterVertex $currentVertex $previousVertex
 
-    #     // Add all neighbors to the queue for future traversals.
-    #     graph.getNeighbors(currentVertex).forEach((nextVertex) => {
-    #       if (callbacks.allowTraversal({ previousVertex, currentVertex, nextVertex })) {
-    #         vertexQueue.enqueue(nextVertex);
-    #       }
-    #     });
+        # Add all neighbors to the queue for future traversals.
+        $graph.getNeighbors($currentVertex).ForEach{
+            $nextVertex = $_
+            if (allowTraversal) {
+                $vertexQueue.enqueue($nextVertex)
+            }
+        }
 
-    #     callbacks.leaveVertex({ currentVertex, previousVertex });
+        leaveVertex $currentVertex $previousVertex
 
-    #     // Memorize current vertex before next loop.
-    #     previousVertex = currentVertex;
-    #   }
+        # Memorize current vertex before next loop.
+        $previousVertex = $currentVertex
+    }
 }

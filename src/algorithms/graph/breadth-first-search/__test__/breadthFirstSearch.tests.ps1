@@ -27,66 +27,60 @@ describe 'breadthFirstSearch' {
         $edgeGH = New-Object GraphEdge $vertexG, $vertexH
 
         $graph.
-          addEdge($edgeAB).
-          addEdge($edgeBC).
-          addEdge($edgeCG).
-          addEdge($edgeAD).
-          addEdge($edgeAE).
-          addEdge($edgeEF).
-          addEdge($edgeFD).
-          addEdge($edgeDH).
-          addEdge($edgeGH)
+        addEdge($edgeAB).
+        addEdge($edgeBC).
+        addEdge($edgeCG).
+        addEdge($edgeAD).
+        addEdge($edgeAE).
+        addEdge($edgeEF).
+        addEdge($edgeFD).
+        addEdge($edgeDH).
+        addEdge($edgeGH)
 
         $graph.toString() | Should Be 'A,B,C,G,D,E,F,H'
 
-        # $enterVertexCallback = jest.fn();
-        # $leaveVertexCallback = jest.fn();
+        Mock enterVertex { $args }
+        Mock leaveVertex { $args }
 
         # Traverse graphs without callbacks first.
         breadthFirstSearch $graph $vertexA
 
-        # # Traverse graph with enterVertex and leaveVertex callbacks.
-        # breadthFirstSearch(graph, vertexA, {
-        #   enterVertex: enterVertexCallback,
-        #   leaveVertex: leaveVertexCallback,
-        # });
+        Assert-MockCalled enterVertex -Times 11 -Exactly
+        Assert-MockCalled leaveVertex -Times 11 -Exactly
 
-        # expect(enterVertexCallback).toHaveBeenCalledTimes(8);
-        # expect(leaveVertexCallback).toHaveBeenCalledTimes(8);
+        $enterVertexParamsMap = @(
+            @{ currentVertex = $vertexA; previousVertex = $null }
+            @{ currentVertex = $vertexB; previousVertex = $vertexA }
+            @{ currentVertex = $vertexD; previousVertex = $vertexB }
+            @{ currentVertex = $vertexE; previousVertex = $vertexD }
+            @{ currentVertex = $vertexC; previousVertex = $vertexE }
+            @{ currentVertex = $vertexH; previousVertex = $vertexC }
+            @{ currentVertex = $vertexF; previousVertex = $vertexH }
+            @{ currentVertex = $vertexG; previousVertex = $vertexF }
+        )
 
-        # const enterVertexParamsMap = [
-        #   { currentVertex: vertexA, previousVertex: null },
-        #   { currentVertex: vertexB, previousVertex: vertexA },
-        #   { currentVertex: vertexD, previousVertex: vertexB },
-        #   { currentVertex: vertexE, previousVertex: vertexD },
-        #   { currentVertex: vertexC, previousVertex: vertexE },
-        #   { currentVertex: vertexH, previousVertex: vertexC },
-        #   { currentVertex: vertexF, previousVertex: vertexH },
-        #   { currentVertex: vertexG, previousVertex: vertexF },
-        # ];
+        for ($callIndex = 0; $callIndex -lt $graph.getAllVertices().Count; $callIndex += 1) {
+            $params = enterVertex $enterVertexParamsMap[$callIndex]
+            $params.currentVertex | Should Be $enterVertexParamsMap[$callIndex].currentVertex
+            $params.previousVertex | Should Be $enterVertexParamsMap[$callIndex].previousVertex
+        }
 
-        # for (let callIndex = 0; callIndex < graph.getAllVertices().length; callIndex += 1) {
-        #   const params = enterVertexCallback.mock.calls[callIndex][0];
-        #   expect(params.currentVertex).toEqual(enterVertexParamsMap[callIndex].currentVertex);
-        #   expect(params.previousVertex).toEqual(enterVertexParamsMap[callIndex].previousVertex);
-        # }
+        $leaveVertexParamsMap = @(
+            @{ currentVertex = $vertexA; previousVertex = $null }
+            @{ currentVertex = $vertexB; previousVertex = $vertexA }
+            @{ currentVertex = $vertexD; previousVertex = $vertexB }
+            @{ currentVertex = $vertexE; previousVertex = $vertexD }
+            @{ currentVertex = $vertexC; previousVertex = $vertexE }
+            @{ currentVertex = $vertexH; previousVertex = $vertexC }
+            @{ currentVertex = $vertexF; previousVertex = $vertexH }
+            @{ currentVertex = $vertexG; previousVertex = $vertexF }
+        )
 
-        # const leaveVertexParamsMap = [
-        #   { currentVertex: vertexA, previousVertex: null },
-        #   { currentVertex: vertexB, previousVertex: vertexA },
-        #   { currentVertex: vertexD, previousVertex: vertexB },
-        #   { currentVertex: vertexE, previousVertex: vertexD },
-        #   { currentVertex: vertexC, previousVertex: vertexE },
-        #   { currentVertex: vertexH, previousVertex: vertexC },
-        #   { currentVertex: vertexF, previousVertex: vertexH },
-        #   { currentVertex: vertexG, previousVertex: vertexF },
-        # ];
-
-        # for (let callIndex = 0; callIndex < graph.getAllVertices().length; callIndex += 1) {
-        #   const params = leaveVertexCallback.mock.calls[callIndex][0];
-        #   expect(params.currentVertex).toEqual(leaveVertexParamsMap[callIndex].currentVertex);
-        #   expect(params.previousVertex).toEqual(leaveVertexParamsMap[callIndex].previousVertex);
-        # }
+        for ($callIndex = 0; $callIndex -lt $graph.getAllVertices().Count; $callIndex += 1) {
+            $params = leaveVertex $leaveVertexParamsMap[$callIndex]
+            $params.currentVertex | Should Be $leaveVertexParamsMap[$callIndex].currentVertex
+            $params.previousVertex | Should Be $leaveVertexParamsMap[$callIndex].previousVertex
+        }
     }
 
     it 'should allow to create custom vertex visiting logic' {
