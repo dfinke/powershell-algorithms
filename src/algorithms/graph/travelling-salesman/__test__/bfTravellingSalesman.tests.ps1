@@ -39,10 +39,9 @@ describe 'bfTravellingSalesman' {
         addEdge($edgeBC).
         addEdge($edgeCB)
 
-        # $salesmanPath = bfTravellingSalesman $graph
-        # $salesmanPath | Should Be 4
+        $salesmanPath = bfTravellingSalesman $graph
 
-        # salesmanPath[0].getKey() | Should Be $vertexA.getKey()
+        #$salesmanPath[0].getKey() | Should Be $vertexA.getKey()
         # salesmanPath[1].getKey() | Should Be $vertexB.getKey()
         # salesmanPath[2].getKey() | Should Be $vertexD.getKey()
         # salesmanPath[3].getKey() | Should Be $vertexC.getKey()
