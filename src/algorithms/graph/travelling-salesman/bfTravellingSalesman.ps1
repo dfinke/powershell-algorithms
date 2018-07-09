@@ -77,7 +77,7 @@ function bfTravellingSalesman($graph) {
         $lastVertex = $v[($v.Count - 1)]        
         $lastVertexNeighbors = $lastVertex.getNeighbors()        
         if($lastVertexNeighbors -contains $startVertex) {
-            $allPossiblePaths+=$startVertex
+            $allPossibleCycles+=$startVertex
         }
     }
 
