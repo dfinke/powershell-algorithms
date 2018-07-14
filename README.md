@@ -1,4 +1,10 @@
+
+<p align="center">
+
 [![Build status](https://ci.appveyor.com/api/projects/status/5mgmde3n31mf9x2a?svg=true)](https://ci.appveyor.com/project/dfinke/powershell-algorithms)
+[![Build status](https://dougfinke.visualstudio.com/powershell-algorithms/_apis/build/status/powershell-algorithms-CI)](https://dougfinke.visualstudio.com/powershell-algorithms/_build/latest?definitionId=6)
+
+</p>
 
 # PowerShell Algorithms and Data Structures
 
