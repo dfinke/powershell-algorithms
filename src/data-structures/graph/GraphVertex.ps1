@@ -51,7 +51,7 @@ class GraphVertex {
         $neighborsConverter = {
             param($node)
 
-            if ($node.value.startVertex.value -eq $this.value) {
+            if ($node.value.startVertex.getKey() -eq $this.getKey()) {
                 return $node.value.endVertex
             }
 
